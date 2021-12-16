@@ -7,6 +7,7 @@ import org.theseed.utils.BaseProcessor;
  * Commands for ERDB utilities
  *
  * init		initialize a database from an SQL script file
+ * display	display a web page describing a database
  */
 public class App
 {
@@ -20,6 +21,9 @@ public class App
         switch (command) {
         case "init" :
             processor = new InitProcessor();
+            break;
+        case "display" :
+            processor = new DisplayProcessor();
             break;
         default:
             throw new RuntimeException("Invalid command " + command);
