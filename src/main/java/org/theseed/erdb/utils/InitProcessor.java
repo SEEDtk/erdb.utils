@@ -6,8 +6,9 @@ package org.theseed.erdb.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.theseed.utils.ParseFailureException;
+
 import org.kohsuke.args4j.Argument;
+import org.theseed.basic.ParseFailureException;
 import org.theseed.java.erdb.DbConnection;
 
 /**

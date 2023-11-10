@@ -1,7 +1,7 @@
 package org.theseed.erdb.utils;
 import java.util.Arrays;
 
-import org.theseed.utils.BaseProcessor;
+import org.theseed.basic.BaseProcessor;
 
 /**
  * Commands for ERDB utilities
