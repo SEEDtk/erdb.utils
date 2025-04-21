@@ -8,6 +8,7 @@ import org.theseed.basic.BaseProcessor;
  *
  * init		initialize a database from an SQL script file
  * display	display a web page describing a database
+ * spec		display a web page describing a specification
  */
 public class App
 {
@@ -25,6 +26,9 @@ public class App
         case "display" :
             processor = new DisplayProcessor();
             break;
+        case "spec" :
+        	processor = new SpecPageProcessor();
+        	break;
         default:
             throw new RuntimeException("Invalid command " + command);
         }

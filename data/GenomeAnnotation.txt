@@ -1,0 +1,9037 @@
+COMMENT	8 col 1
+API Access to the Genome Annotation Service.
+Provides support for gene calling, functional annotation, re-annotation. Use to extract annotation in formation about an existing genome, or to create new annotations.
+//
+WORD	8 col 8
+module
+//
+WORD	9 col 1
+GenomeAnnotation
+//
+DELIM	11 col 5
+{
+//
+COMMENT	15 col 5
+This is a handle service handle object, used for by-reference passing of data files.
+//
+WORD	15 col 13
+typedef
+//
+WORD	15 col 23
+structure
+//
+DELIM	16 col 9
+{
+//
+WORD	16 col 16
+string
+//
+WORD	16 col 25
+file_name
+//
+DELIM	17 col 9
+;
+//
+WORD	17 col 16
+string
+//
+WORD	17 col 18
+id
+//
+DELIM	18 col 9
+;
+//
+WORD	18 col 16
+string
+//
+WORD	18 col 20
+type
+//
+DELIM	19 col 9
+;
+//
+WORD	19 col 16
+string
+//
+WORD	19 col 19
+url
+//
+DELIM	20 col 9
+;
+//
+WORD	20 col 16
+string
+//
+WORD	20 col 26
+remote_md5
+//
+DELIM	21 col 9
+;
+//
+WORD	21 col 16
+string
+//
+WORD	21 col 27
+remote_sha1
+//
+DELIM	22 col 5
+;
+//
+DELIM	22 col 7
+}
+//
+WORD	22 col 13
+Handle
+//
+DELIM	25 col 5
+;
+//
+WORD	25 col 13
+typedef
+//
+WORD	25 col 17
+int
+//
+WORD	25 col 21
+bool
+//
+DELIM	26 col 5
+;
+//
+WORD	26 col 13
+typedef
+//
+WORD	26 col 20
+string
+//
+WORD	26 col 23
+md5
+//
+DELIM	27 col 5
+;
+//
+WORD	27 col 13
+typedef
+//
+WORD	27 col 17
+list
+//
+DELIM	27 col 18
+<
+//
+WORD	27 col 21
+md5
+//
+DELIM	27 col 23
+>
+//
+WORD	27 col 27
+md5s
+//
+DELIM	28 col 5
+;
+//
+WORD	28 col 13
+typedef
+//
+WORD	28 col 20
+string
+//
+WORD	28 col 29
+genome_id
+//
+DELIM	29 col 5
+;
+//
+WORD	29 col 13
+typedef
+//
+WORD	29 col 20
+string
+//
+WORD	29 col 30
+feature_id
+//
+DELIM	30 col 5
+;
+//
+WORD	30 col 13
+typedef
+//
+WORD	30 col 20
+string
+//
+WORD	30 col 29
+contig_id
+//
+DELIM	31 col 5
+;
+//
+WORD	31 col 13
+typedef
+//
+WORD	31 col 20
+string
+//
+WORD	31 col 32
+feature_type
+//
+DELIM	33 col 5
+;
+//
+COMMENT	45 col 5
+A region of DNA is maintained as a tuple of four components:
+
+         the contig
+         the beginning position (from 1)
+         the strand
+         the length
+
+ We often speak of "a region".  By "location", we mean a sequence
+ of regions from the same genome (perhaps from distinct contigs).
+
+ Strand is either '+' or '-'.
+//
+WORD	45 col 13
+typedef
+//
+WORD	45 col 18
+tuple
+//
+DELIM	45 col 19
+<
+//
+WORD	45 col 28
+contig_id
+//
+DELIM	45 col 30
+,
+//
+WORD	45 col 34
+int
+//
+WORD	45 col 39
+begin
+//
+DELIM	45 col 41
+,
+//
+WORD	45 col 48
+string
+//
+WORD	45 col 54
+strand
+//
+DELIM	45 col 55
+,
+//
+WORD	45 col 59
+int
+//
+WORD	45 col 65
+length
+//
+DELIM	45 col 67
+>
+//
+WORD	45 col 80
+region_of_dna
+//
+DELIM	47 col 5
+;
+//
+COMMENT	50 col 5
+a "location" refers to a sequence of regions
+//
+WORD	50 col 13
+typedef
+//
+WORD	50 col 17
+list
+//
+DELIM	50 col 18
+<
+//
+WORD	50 col 31
+region_of_dna
+//
+DELIM	50 col 33
+>
+//
+WORD	50 col 41
+location
+//
+DELIM	52 col 5
+;
+//
+WORD	52 col 13
+typedef
+//
+WORD	52 col 20
+string
+//
+WORD	52 col 37
+analysis_event_id
+//
+DELIM	53 col 5
+;
+//
+WORD	53 col 13
+typedef
+//
+WORD	53 col 23
+structure
+//
+DELIM	54 col 9
+{
+//
+WORD	54 col 27
+analysis_event_id
+//
+WORD	54 col 29
+id
+//
+DELIM	55 col 9
+;
+//
+WORD	55 col 16
+string
+//
+WORD	55 col 25
+tool_name
+//
+DELIM	56 col 9
+;
+//
+WORD	56 col 15
+float
+//
+WORD	56 col 29
+execution_time
+//
+DELIM	57 col 9
+;
+//
+WORD	57 col 13
+list
+//
+DELIM	57 col 14
+<
+//
+WORD	57 col 20
+string
+//
+DELIM	57 col 22
+>
+//
+WORD	57 col 32
+parameters
+//
+DELIM	58 col 9
+;
+//
+WORD	58 col 16
+string
+//
+WORD	58 col 24
+hostname
+//
+DELIM	59 col 5
+;
+//
+DELIM	59 col 7
+}
+//
+WORD	59 col 21
+analysis_event
+//
+DELIM	61 col 5
+;
+//
+WORD	61 col 13
+typedef
+//
+WORD	61 col 23
+structure
+//
+DELIM	62 col 9
+{
+//
+WORD	62 col 16
+string
+//
+WORD	62 col 22
+job_id
+//
+DELIM	63 col 9
+;
+//
+WORD	63 col 16
+string
+//
+WORD	63 col 26
+start_time
+//
+DELIM	64 col 9
+;
+//
+WORD	64 col 16
+string
+//
+WORD	64 col 31
+completion_time
+//
+DELIM	65 col 9
+;
+//
+WORD	65 col 15
+float
+//
+WORD	65 col 27
+elapsed_time
+//
+DELIM	66 col 9
+;
+//
+WORD	66 col 16
+string
+//
+WORD	66 col 24
+app_name
+//
+DELIM	67 col 9
+;
+//
+WORD	67 col 16
+mapping
+//
+DELIM	67 col 17
+<
+//
+WORD	67 col 23
+string
+//
+DELIM	67 col 25
+,
+//
+WORD	67 col 31
+string
+//
+DELIM	67 col 33
+>
+//
+WORD	67 col 43
+parameters
+//
+DELIM	68 col 9
+;
+//
+WORD	68 col 16
+mapping
+//
+DELIM	68 col 17
+<
+//
+WORD	68 col 23
+string
+//
+DELIM	68 col 25
+,
+//
+WORD	68 col 31
+string
+//
+DELIM	68 col 33
+>
+//
+WORD	68 col 43
+attributes
+//
+DELIM	69 col 5
+;
+//
+DELIM	69 col 7
+}
+//
+WORD	69 col 21
+job_statistics
+//
+DELIM	71 col 5
+;
+//
+WORD	71 col 13
+typedef
+//
+WORD	71 col 18
+tuple
+//
+DELIM	71 col 19
+<
+//
+WORD	71 col 26
+string
+//
+WORD	71 col 33
+comment
+//
+DELIM	71 col 35
+,
+//
+WORD	71 col 42
+string
+//
+WORD	71 col 51
+annotator
+//
+DELIM	71 col 53
+,
+//
+WORD	71 col 59
+float
+//
+WORD	71 col 74
+annotation_time
+//
+DELIM	71 col 76
+,
+//
+WORD	71 col 93
+analysis_event_id
+//
+DELIM	71 col 95
+>
+//
+WORD	71 col 105
+annotation
+//
+DELIM	73 col 5
+;
+//
+WORD	73 col 13
+typedef
+//
+WORD	73 col 23
+structure
+//
+DELIM	74 col 9
+{
+//
+WORD	74 col 16
+string
+//
+WORD	74 col 31
+feature_quality
+//
+DELIM	74 col 33
+;
+//
+COMMENT	75 col 9
+"Good" or "Poor"
+//
+WORD	75 col 13
+list
+//
+DELIM	75 col 14
+<
+//
+WORD	75 col 20
+string
+//
+DELIM	75 col 22
+>
+//
+WORD	75 col 43
+feature_quality_flags
+//
+DELIM	76 col 13
+;
+//
+WORD	76 col 18
+bool
+//
+WORD	76 col 27
+truncated
+//
+DELIM	77 col 9
+;
+//
+WORD	77 col 14
+bool
+//
+WORD	77 col 29
+truncated_begin
+//
+DELIM	78 col 9
+;
+//
+WORD	78 col 14
+bool
+//
+WORD	78 col 27
+truncated_end
+//
+DELIM	79 col 9
+;
+//
+COMMENT	80 col 9
+Is this a real feature?
+//
+WORD	80 col 15
+float
+//
+WORD	80 col 35
+existence_confidence
+//
+DELIM	82 col 9
+;
+//
+WORD	82 col 14
+bool
+//
+WORD	82 col 26
+frameshifted
+//
+DELIM	83 col 9
+;
+//
+WORD	83 col 14
+bool
+//
+WORD	83 col 27
+selenoprotein
+//
+DELIM	84 col 9
+;
+//
+WORD	84 col 14
+bool
+//
+WORD	84 col 31
+pyrrolysylprotein
+//
+DELIM	86 col 9
+;
+//
+COMMENT	93 col 9
+List of rules that govern the overlap removal procedure for this feature. We don't yet have a strict definition for this but the notion is that this will consiste of entries of the form +feature-type which will allow overlap with the given feature type; -feature-type which will disallow overlap with the given feature type.
+//
+WORD	93 col 13
+list
+//
+DELIM	93 col 14
+<
+//
+WORD	93 col 20
+string
+//
+DELIM	93 col 22
+>
+//
+WORD	93 col 35
+overlap_rules
+//
+DELIM	95 col 9
+;
+//
+COMMENT	105 col 9
+The numeric priority of this feature's right to exist. Specialty tools will give the features they create a high priority; more generic tools will give their features a lower priority. The overlap removal procedure will use this priority to determine which of a set of overlapping features should be removed.
+The intent is that a change of 1 in the priority value represents a factor of 2 in preference.
+//
+WORD	105 col 15
+float
+//
+WORD	105 col 33
+existence_priority
+//
+DELIM	107 col 9
+;
+//
+WORD	107 col 15
+float
+//
+WORD	107 col 24
+hit_count
+//
+DELIM	108 col 9
+;
+//
+WORD	108 col 15
+float
+//
+WORD	108 col 33
+weighted_hit_count
+//
+DELIM	109 col 9
+;
+//
+WORD	109 col 15
+float
+//
+WORD	109 col 29
+genemark_score
+//
+DELIM	110 col 5
+;
+//
+DELIM	110 col 7
+}
+//
+WORD	110 col 30
+feature_quality_measure
+//
+DELIM	112 col 5
+;
+//
+COMMENT	118 col 5
+A protein family assignment notes the assignment of the given feature to a protein family. db is the name of the protein family database (e.g. FIGfam, GPF for GlobalPatricFam, LPF for LocalPatricFam, etc.)
+//
+WORD	118 col 13
+typedef
+//
+WORD	118 col 19
+tuple
+//
+DELIM	118 col 20
+<
+//
+WORD	118 col 27
+string
+//
+WORD	118 col 29
+db
+//
+DELIM	118 col 31
+,
+//
+WORD	118 col 38
+string
+//
+WORD	118 col 40
+id
+//
+DELIM	118 col 42
+,
+//
+WORD	118 col 49
+string
+//
+WORD	118 col 57
+function
+//
+DELIM	118 col 59
+,
+//
+WORD	118 col 66
+string
+//
+WORD	118 col 76
+db_version
+//
+DELIM	118 col 78
+>
+//
+WORD	118 col 103
+protein_family_assignment
+//
+DELIM	120 col 5
+;
+//
+COMMENT	125 col 5
+A similarity association notes the BLAST-computed association between this feature and a given protein database.
+//
+WORD	125 col 13
+typedef
+//
+WORD	125 col 19
+tuple
+//
+DELIM	125 col 20
+<
+//
+WORD	125 col 27
+string
+//
+WORD	125 col 33
+source
+//
+DELIM	125 col 35
+,
+//
+WORD	125 col 42
+string
+//
+WORD	125 col 51
+source_id
+//
+DELIM	126 col 9
+,
+//
+WORD	126 col 15
+float
+//
+WORD	126 col 29
+query_coverage
+//
+DELIM	126 col 31
+,
+//
+WORD	126 col 37
+float
+//
+WORD	126 col 53
+subject_coverage
+//
+DELIM	126 col 55
+,
+//
+WORD	126 col 61
+float
+//
+WORD	126 col 69
+identity
+//
+DELIM	126 col 71
+,
+//
+WORD	126 col 77
+float
+//
+WORD	126 col 84
+e_value
+//
+DELIM	127 col 9
+>
+//
+WORD	127 col 31
+similarity_association
+//
+DELIM	129 col 5
+;
+//
+COMMENT	134 col 5
+A proposed function records an assertion of the function of a feature. A feature may have multiple proposed functions. A tool downstream of the tools that propose functions may determine based on the asserted proposals which function should be the assigned function for the feature.
+//
+WORD	134 col 13
+typedef
+//
+WORD	134 col 23
+structure
+//
+DELIM	135 col 9
+{
+//
+WORD	135 col 16
+string
+//
+WORD	135 col 18
+id
+//
+DELIM	136 col 9
+;
+//
+WORD	136 col 16
+string
+//
+WORD	136 col 24
+function
+//
+DELIM	137 col 9
+;
+//
+WORD	137 col 16
+string
+//
+WORD	137 col 20
+user
+//
+DELIM	138 col 9
+;
+//
+WORD	138 col 15
+float
+//
+WORD	138 col 20
+score
+//
+DELIM	139 col 9
+;
+//
+WORD	139 col 27
+analysis_event_id
+//
+WORD	139 col 35
+event_id
+//
+DELIM	140 col 9
+;
+//
+WORD	140 col 13
+int
+//
+WORD	140 col 22
+timestamp
+//
+DELIM	141 col 5
+;
+//
+DELIM	141 col 7
+}
+//
+WORD	141 col 24
+proposed_function
+//
+DELIM	143 col 5
+;
+//
+WORD	143 col 13
+typedef
+//
+WORD	143 col 23
+structure
+//
+DELIM	144 col 9
+{
+//
+WORD	144 col 16
+string
+//
+WORD	144 col 28
+genbank_type
+//
+DELIM	145 col 9
+;
+//
+WORD	145 col 16
+string
+//
+WORD	145 col 32
+genbank_location
+//
+DELIM	146 col 9
+;
+//
+WORD	146 col 16
+mapping
+//
+DELIM	146 col 17
+<
+//
+WORD	146 col 24
+string
+//
+WORD	146 col 33
+qualifier
+//
+DELIM	146 col 35
+,
+//
+WORD	146 col 39
+list
+//
+DELIM	146 col 40
+<
+//
+WORD	146 col 46
+string
+//
+DELIM	146 col 47
+>
+//
+DELIM	146 col 49
+>
+//
+WORD	146 col 55
+values
+//
+DELIM	147 col 5
+;
+//
+DELIM	147 col 7
+}
+//
+WORD	147 col 22
+genbank_feature
+//
+DELIM	149 col 5
+;
+//
+WORD	149 col 13
+typedef
+//
+WORD	149 col 23
+structure
+//
+DELIM	150 col 9
+{
+//
+WORD	150 col 13
+list
+//
+DELIM	150 col 14
+<
+//
+WORD	150 col 20
+string
+//
+DELIM	150 col 22
+>
+//
+WORD	150 col 31
+accession
+//
+DELIM	151 col 9
+;
+//
+WORD	151 col 13
+list
+//
+DELIM	151 col 14
+<
+//
+WORD	151 col 20
+string
+//
+DELIM	151 col 22
+>
+//
+WORD	151 col 29
+comment
+//
+DELIM	152 col 9
+;
+//
+WORD	152 col 16
+string
+//
+WORD	152 col 20
+date
+//
+DELIM	153 col 9
+;
+//
+WORD	153 col 13
+list
+//
+DELIM	153 col 14
+<
+//
+WORD	153 col 20
+string
+//
+DELIM	153 col 22
+>
+//
+WORD	153 col 28
+dblink
+//
+DELIM	154 col 9
+;
+//
+WORD	154 col 13
+list
+//
+DELIM	154 col 14
+<
+//
+WORD	154 col 20
+string
+//
+DELIM	154 col 22
+>
+//
+WORD	154 col 30
+dbsource
+//
+DELIM	155 col 9
+;
+//
+WORD	155 col 16
+string
+//
+WORD	155 col 26
+definition
+//
+DELIM	156 col 9
+;
+//
+WORD	156 col 16
+string
+//
+WORD	156 col 24
+division
+//
+DELIM	157 col 9
+;
+//
+WORD	157 col 16
+string
+//
+WORD	157 col 24
+geometry
+//
+DELIM	158 col 9
+;
+//
+WORD	158 col 13
+int
+//
+WORD	158 col 15
+gi
+//
+DELIM	159 col 9
+;
+//
+WORD	159 col 13
+list
+//
+DELIM	159 col 14
+<
+//
+WORD	159 col 20
+string
+//
+DELIM	159 col 22
+>
+//
+WORD	159 col 30
+keywords
+//
+DELIM	160 col 9
+;
+//
+WORD	160 col 16
+string
+//
+WORD	160 col 21
+locus
+//
+DELIM	161 col 9
+;
+//
+WORD	161 col 16
+string
+//
+WORD	161 col 24
+organism
+//
+DELIM	162 col 9
+;
+//
+WORD	162 col 16
+string
+//
+WORD	162 col 22
+origin
+//
+DELIM	163 col 9
+;
+//
+WORD	163 col 13
+list
+//
+DELIM	163 col 14
+<
+//
+WORD	163 col 21
+mapping
+//
+DELIM	163 col 22
+<
+//
+WORD	163 col 28
+string
+//
+DELIM	163 col 30
+,
+//
+WORD	163 col 36
+string
+//
+DELIM	163 col 37
+>
+//
+DELIM	163 col 39
+>
+//
+WORD	163 col 49
+references
+//
+DELIM	164 col 9
+;
+//
+WORD	164 col 16
+string
+//
+WORD	164 col 22
+source
+//
+DELIM	165 col 9
+;
+//
+WORD	165 col 13
+list
+//
+DELIM	165 col 14
+<
+//
+WORD	165 col 20
+string
+//
+DELIM	165 col 22
+>
+//
+WORD	165 col 30
+taxonomy
+//
+DELIM	166 col 9
+;
+//
+WORD	166 col 13
+list
+//
+DELIM	166 col 14
+<
+//
+WORD	166 col 20
+string
+//
+DELIM	166 col 22
+>
+//
+WORD	166 col 29
+version
+//
+DELIM	167 col 5
+;
+//
+DELIM	167 col 7
+}
+//
+WORD	167 col 20
+genbank_locus
+//
+DELIM	169 col 5
+;
+//
+COMMENT	175 col 5
+A feature object represents a feature on the genome. It contains the location on the contig with a type, the translation if it represents a protein, associated aliases, etc. It also contains information gathered during the annotation process that is involved in stages that perform overlap removal, quality testing, etc.
+//
+WORD	175 col 13
+typedef
+//
+WORD	175 col 23
+structure
+//
+DELIM	176 col 9
+{
+//
+WORD	176 col 20
+feature_id
+//
+WORD	176 col 22
+id
+//
+DELIM	177 col 9
+;
+//
+WORD	177 col 18
+location
+//
+WORD	177 col 26
+location
+//
+DELIM	178 col 9
+;
+//
+WORD	178 col 22
+feature_type
+//
+WORD	178 col 26
+type
+//
+DELIM	179 col 9
+;
+//
+WORD	179 col 16
+string
+//
+WORD	179 col 24
+function
+//
+DELIM	180 col 9
+;
+//
+COMMENT	184 col 9
+The function_id refers to the particular proposed function that was chosen for this feature.
+//
+WORD	184 col 16
+string
+//
+WORD	184 col 27
+function_id
+//
+DELIM	185 col 9
+;
+//
+WORD	185 col 16
+string
+//
+WORD	185 col 35
+protein_translation
+//
+DELIM	186 col 9
+;
+//
+WORD	186 col 13
+list
+//
+DELIM	186 col 14
+<
+//
+WORD	186 col 20
+string
+//
+DELIM	186 col 22
+>
+//
+WORD	186 col 29
+aliases
+//
+DELIM	187 col 9
+;
+//
+WORD	187 col 13
+list
+//
+DELIM	187 col 14
+<
+//
+WORD	187 col 19
+tuple
+//
+DELIM	187 col 20
+<
+//
+WORD	187 col 27
+string
+//
+WORD	187 col 33
+source
+//
+DELIM	187 col 35
+,
+//
+WORD	187 col 42
+string
+//
+WORD	187 col 47
+alias
+//
+DELIM	187 col 48
+>
+//
+DELIM	187 col 50
+>
+//
+WORD	187 col 61
+alias_pairs
+//
+DELIM	188 col 9
+;
+//
+WORD	188 col 13
+list
+//
+DELIM	188 col 14
+<
+//
+WORD	188 col 24
+annotation
+//
+DELIM	188 col 26
+>
+//
+WORD	188 col 37
+annotations
+//
+DELIM	189 col 9
+;
+//
+WORD	189 col 33
+feature_quality_measure
+//
+WORD	189 col 40
+quality
+//
+DELIM	190 col 9
+;
+//
+WORD	190 col 27
+analysis_event_id
+//
+WORD	190 col 49
+feature_creation_event
+//
+DELIM	191 col 9
+;
+//
+WORD	191 col 13
+list
+//
+DELIM	191 col 14
+<
+//
+WORD	191 col 39
+protein_family_assignment
+//
+DELIM	191 col 41
+>
+//
+WORD	191 col 59
+family_assignments
+//
+DELIM	192 col 9
+;
+//
+WORD	192 col 13
+list
+//
+DELIM	192 col 14
+<
+//
+WORD	192 col 36
+similarity_association
+//
+DELIM	192 col 38
+>
+//
+WORD	192 col 61
+similarity_associations
+//
+DELIM	193 col 9
+;
+//
+WORD	193 col 13
+list
+//
+DELIM	193 col 14
+<
+//
+WORD	193 col 31
+proposed_function
+//
+DELIM	193 col 33
+>
+//
+WORD	193 col 51
+proposed_functions
+//
+DELIM	195 col 9
+;
+//
+WORD	195 col 16
+string
+//
+WORD	195 col 28
+genbank_type
+//
+DELIM	196 col 9
+;
+//
+WORD	196 col 25
+genbank_feature
+//
+WORD	196 col 40
+genbank_feature
+//
+DELIM	198 col 9
+;
+//
+WORD	198 col 13
+list
+//
+DELIM	198 col 14
+<
+//
+WORD	198 col 19
+tuple
+//
+DELIM	198 col 20
+<
+//
+WORD	198 col 27
+string
+//
+WORD	198 col 29
+id
+//
+DELIM	198 col 31
+,
+//
+WORD	198 col 38
+string
+//
+WORD	198 col 49
+description
+//
+DELIM	198 col 50
+>
+//
+DELIM	198 col 52
+>
+//
+WORD	198 col 62
+ec_numbers
+//
+DELIM	199 col 9
+;
+//
+WORD	199 col 13
+list
+//
+DELIM	199 col 14
+<
+//
+WORD	199 col 19
+tuple
+//
+DELIM	199 col 20
+<
+//
+WORD	199 col 27
+string
+//
+WORD	199 col 29
+id
+//
+DELIM	199 col 31
+,
+//
+WORD	199 col 38
+string
+//
+WORD	199 col 49
+description
+//
+DELIM	199 col 50
+>
+//
+DELIM	199 col 52
+>
+//
+WORD	199 col 60
+go_terms
+//
+DELIM	200 col 9
+;
+//
+WORD	200 col 13
+list
+//
+DELIM	200 col 14
+<
+//
+WORD	200 col 19
+tuple
+//
+DELIM	200 col 20
+<
+//
+WORD	200 col 27
+string
+//
+WORD	200 col 29
+id
+//
+DELIM	200 col 31
+,
+//
+WORD	200 col 38
+string
+//
+WORD	200 col 49
+description
+//
+DELIM	200 col 50
+>
+//
+DELIM	200 col 52
+>
+//
+WORD	200 col 60
+pathways
+//
+DELIM	201 col 5
+;
+//
+DELIM	201 col 7
+}
+//
+WORD	201 col 14
+feature
+//
+DELIM	203 col 5
+;
+//
+COMMENT	204 col 5
+Data for DNA contig
+//
+WORD	204 col 13
+typedef
+//
+WORD	204 col 23
+structure
+//
+DELIM	205 col 9
+{
+//
+WORD	205 col 19
+contig_id
+//
+WORD	205 col 21
+id
+//
+DELIM	206 col 9
+;
+//
+WORD	206 col 16
+string
+//
+WORD	206 col 19
+dna
+//
+DELIM	207 col 9
+;
+//
+WORD	207 col 13
+int
+//
+WORD	207 col 25
+genetic_code
+//
+DELIM	208 col 9
+;
+//
+WORD	208 col 16
+string
+//
+WORD	208 col 32
+cell_compartment
+//
+DELIM	209 col 9
+;
+//
+WORD	209 col 16
+string
+//
+WORD	209 col 29
+replicon_type
+//
+DELIM	210 col 9
+;
+//
+COMMENT	211 col 9
+circular / linear
+//
+WORD	211 col 16
+string
+//
+WORD	211 col 33
+replicon_geometry
+//
+DELIM	212 col 9
+;
+//
+WORD	212 col 14
+bool
+//
+WORD	212 col 22
+complete
+//
+DELIM	213 col 9
+;
+//
+WORD	213 col 23
+genbank_locus
+//
+WORD	213 col 36
+genbank_locus
+//
+DELIM	214 col 9
+;
+//
+WORD	214 col 16
+string
+//
+WORD	214 col 27
+original_id
+//
+DELIM	215 col 10
+;
+//
+COMMENT	216 col 11
+Quality data
+//
+WORD	216 col 18
+string
+//
+WORD	216 col 32
+contig_quality
+//
+DELIM	217 col 11
+;
+//
+WORD	217 col 15
+list
+//
+DELIM	217 col 16
+<
+//
+WORD	217 col 22
+string
+//
+DELIM	217 col 24
+>
+//
+WORD	217 col 44
+contig_quality_flags
+//
+DELIM	219 col 5
+;
+//
+DELIM	219 col 7
+}
+//
+WORD	219 col 13
+contig
+//
+DELIM	221 col 5
+;
+//
+WORD	221 col 13
+typedef
+//
+WORD	221 col 23
+structure
+//
+DELIM	222 col 9
+{
+//
+WORD	222 col 19
+genome_id
+//
+WORD	222 col 25
+genome
+//
+DELIM	223 col 9
+;
+//
+WORD	223 col 16
+string
+//
+WORD	223 col 27
+genome_name
+//
+DELIM	224 col 9
+;
+//
+WORD	224 col 15
+float
+//
+WORD	224 col 32
+closeness_measure
+//
+DELIM	225 col 9
+;
+//
+WORD	225 col 16
+string
+//
+WORD	225 col 31
+analysis_method
+//
+DELIM	226 col 5
+;
+//
+DELIM	226 col 7
+}
+//
+WORD	226 col 19
+close_genome
+//
+DELIM	228 col 5
+;
+//
+WORD	228 col 13
+typedef
+//
+WORD	229 col 5
+structure
+//
+DELIM	230 col 9
+{
+//
+WORD	230 col 15
+float
+//
+WORD	230 col 36
+frameshift_error_rate
+//
+DELIM	231 col 9
+;
+//
+WORD	231 col 15
+float
+//
+WORD	231 col 34
+sequence_error_rate
+//
+DELIM	232 col 9
+;
+//
+WORD	232 col 16
+mapping
+//
+DELIM	232 col 17
+<
+//
+WORD	232 col 23
+string
+//
+DELIM	232 col 25
+,
+//
+WORD	232 col 31
+string
+//
+DELIM	232 col 33
+>
+//
+WORD	232 col 44
+checkm_data
+//
+DELIM	233 col 9
+;
+//
+WORD	233 col 19
+structure
+//
+DELIM	234 col 13
+{
+//
+WORD	234 col 20
+mapping
+//
+DELIM	234 col 21
+<
+//
+WORD	234 col 27
+string
+//
+DELIM	234 col 29
+,
+//
+WORD	234 col 35
+string
+//
+DELIM	234 col 37
+>
+//
+WORD	234 col 45
+role_map
+//
+DELIM	235 col 13
+;
+//
+WORD	235 col 20
+mapping
+//
+DELIM	235 col 21
+<
+//
+WORD	235 col 27
+string
+//
+DELIM	235 col 29
+,
+//
+WORD	235 col 33
+list
+//
+DELIM	235 col 34
+<
+//
+WORD	235 col 40
+string
+//
+DELIM	235 col 41
+>
+//
+DELIM	235 col 43
+>
+//
+WORD	235 col 52
+role_fids
+//
+DELIM	236 col 13
+;
+//
+WORD	236 col 20
+mapping
+//
+DELIM	236 col 21
+<
+//
+WORD	236 col 27
+string
+//
+DELIM	236 col 29
+,
+//
+WORD	236 col 34
+tuple
+//
+DELIM	236 col 35
+<
+//
+WORD	236 col 39
+int
+//
+WORD	236 col 48
+predicted
+//
+DELIM	236 col 50
+,
+//
+WORD	236 col 54
+int
+//
+WORD	236 col 60
+actual
+//
+DELIM	236 col 61
+>
+//
+DELIM	236 col 63
+>
+//
+WORD	236 col 80
+consistency_roles
+//
+DELIM	237 col 13
+;
+//
+WORD	237 col 20
+mapping
+//
+DELIM	237 col 21
+<
+//
+WORD	237 col 27
+string
+//
+DELIM	237 col 29
+,
+//
+WORD	237 col 34
+tuple
+//
+DELIM	237 col 35
+<
+//
+WORD	237 col 39
+int
+//
+WORD	237 col 48
+predicted
+//
+DELIM	237 col 50
+,
+//
+WORD	237 col 54
+int
+//
+WORD	237 col 60
+actual
+//
+DELIM	237 col 61
+>
+//
+DELIM	237 col 63
+>
+//
+WORD	237 col 81
+completeness_roles
+//
+DELIM	238 col 9
+;
+//
+DELIM	238 col 11
+}
+//
+WORD	238 col 35
+problematic_roles_report
+//
+DELIM	239 col 9
+;
+//
+WORD	239 col 15
+float
+//
+WORD	239 col 33
+coarse_consistency
+//
+DELIM	240 col 9
+;
+//
+WORD	240 col 15
+float
+//
+WORD	240 col 31
+fine_consistency
+//
+DELIM	241 col 9
+;
+//
+WORD	241 col 15
+float
+//
+WORD	241 col 27
+completeness
+//
+DELIM	242 col 9
+;
+//
+WORD	242 col 15
+float
+//
+WORD	242 col 28
+contamination
+//
+DELIM	243 col 9
+;
+//
+WORD	243 col 16
+string
+//
+WORD	243 col 34
+completeness_group
+//
+DELIM	244 col 9
+;
+//
+WORD	244 col 19
+structure
+//
+DELIM	245 col 13
+{
+//
+WORD	245 col 17
+int
+//
+WORD	245 col 20
+N50
+//
+DELIM	246 col 13
+;
+//
+WORD	246 col 17
+int
+//
+WORD	246 col 20
+N70
+//
+DELIM	247 col 13
+;
+//
+WORD	247 col 17
+int
+//
+WORD	247 col 20
+N90
+//
+DELIM	248 col 13
+;
+//
+WORD	248 col 17
+int
+//
+WORD	248 col 20
+L50
+//
+DELIM	249 col 13
+;
+//
+WORD	249 col 17
+int
+//
+WORD	249 col 20
+L70
+//
+DELIM	250 col 13
+;
+//
+WORD	250 col 17
+int
+//
+WORD	250 col 20
+L90
+//
+DELIM	251 col 13
+;
+//
+WORD	251 col 17
+int
+//
+WORD	251 col 23
+totlen
+//
+DELIM	252 col 13
+;
+//
+WORD	252 col 17
+int
+//
+WORD	252 col 25
+complete
+//
+DELIM	253 col 9
+;
+//
+DELIM	253 col 11
+}
+//
+WORD	253 col 25
+genome_metrics
+//
+DELIM	255 col 9
+;
+//
+WORD	255 col 13
+int
+//
+WORD	255 col 26
+genome_length
+//
+DELIM	256 col 9
+;
+//
+WORD	256 col 15
+float
+//
+WORD	256 col 25
+gc_content
+//
+DELIM	257 col 9
+;
+//
+WORD	257 col 13
+int
+//
+WORD	257 col 24
+chromosomes
+//
+DELIM	258 col 9
+;
+//
+WORD	258 col 13
+int
+//
+WORD	258 col 21
+plasmids
+//
+DELIM	259 col 9
+;
+//
+WORD	259 col 13
+int
+//
+WORD	259 col 20
+contigs
+//
+DELIM	261 col 9
+;
+//
+WORD	261 col 13
+int
+//
+WORD	261 col 31
+contig_ambig_count
+//
+DELIM	262 col 9
+;
+//
+WORD	262 col 15
+float
+//
+WORD	262 col 36
+contig_ambig_fraction
+//
+DELIM	263 col 9
+;
+//
+WORD	263 col 13
+int
+//
+WORD	263 col 37
+contig_longest_ambig_run
+//
+DELIM	265 col 9
+;
+//
+WORD	265 col 16
+string
+//
+WORD	265 col 29
+genome_status
+//
+DELIM	267 col 9
+;
+//
+WORD	267 col 19
+structure
+//
+DELIM	268 col 13
+{
+//
+WORD	268 col 17
+int
+//
+WORD	268 col 20
+cds
+//
+DELIM	269 col 13
+;
+//
+WORD	269 col 17
+int
+//
+WORD	269 col 28
+partial_cds
+//
+DELIM	270 col 13
+;
+//
+WORD	270 col 17
+int
+//
+WORD	270 col 21
+rRNA
+//
+DELIM	271 col 13
+;
+//
+WORD	271 col 17
+int
+//
+WORD	271 col 21
+tRNA
+//
+DELIM	272 col 13
+;
+//
+WORD	272 col 17
+int
+//
+WORD	272 col 25
+misc_RNA
+//
+DELIM	273 col 13
+;
+//
+WORD	273 col 17
+int
+//
+WORD	273 col 30
+repeat_region
+//
+DELIM	274 col 9
+;
+//
+DELIM	274 col 11
+}
+//
+WORD	274 col 26
+feature_summary
+//
+DELIM	276 col 9
+;
+//
+WORD	276 col 19
+structure
+//
+DELIM	277 col 13
+{
+//
+WORD	277 col 17
+int
+//
+WORD	277 col 29
+hypothetical
+//
+DELIM	278 col 13
+;
+//
+WORD	278 col 17
+int
+//
+WORD	278 col 36
+function_assignment
+//
+DELIM	279 col 13
+;
+//
+WORD	279 col 17
+int
+//
+WORD	279 col 33
+plfam_assignment
+//
+DELIM	280 col 13
+;
+//
+WORD	280 col 17
+int
+//
+WORD	280 col 33
+pgfam_assignment
+//
+DELIM	281 col 13
+;
+//
+WORD	281 col 17
+int
+//
+WORD	281 col 30
+ec_assignment
+//
+DELIM	282 col 13
+;
+//
+WORD	282 col 17
+int
+//
+WORD	282 col 30
+go_assignment
+//
+DELIM	283 col 13
+;
+//
+WORD	283 col 17
+int
+//
+WORD	283 col 35
+pathway_assignment
+//
+DELIM	284 col 9
+;
+//
+DELIM	284 col 11
+}
+//
+WORD	284 col 26
+protein_summary
+//
+DELIM	286 col 9
+;
+//
+WORD	286 col 16
+mapping
+//
+DELIM	286 col 17
+<
+//
+WORD	286 col 23
+string
+//
+DELIM	286 col 25
+,
+//
+WORD	286 col 28
+int
+//
+DELIM	286 col 30
+>
+//
+WORD	286 col 52
+specialty_gene_summary
+//
+DELIM	288 col 9
+;
+//
+WORD	288 col 13
+list
+//
+DELIM	288 col 14
+<
+//
+WORD	288 col 19
+tuple
+//
+DELIM	288 col 20
+<
+//
+WORD	288 col 31
+feature_id
+//
+WORD	288 col 33
+id
+//
+DELIM	288 col 35
+,
+//
+WORD	288 col 42
+string
+//
+WORD	288 col 51
+gene_name
+//
+DELIM	288 col 53
+,
+//
+WORD	288 col 60
+string
+//
+WORD	288 col 68
+function
+//
+DELIM	288 col 70
+,
+//
+WORD	288 col 77
+string
+//
+WORD	288 col 95
+amr_classification
+//
+DELIM	288 col 96
+>
+//
+DELIM	288 col 98
+>
+//
+WORD	288 col 107
+amr_genes
+//
+DELIM	289 col 9
+;
+//
+WORD	289 col 13
+list
+//
+DELIM	289 col 14
+<
+//
+WORD	289 col 19
+tuple
+//
+DELIM	289 col 20
+<
+//
+WORD	289 col 27
+string
+//
+WORD	289 col 45
+amr_classification
+//
+DELIM	289 col 47
+,
+//
+WORD	289 col 51
+list
+//
+DELIM	289 col 52
+<
+//
+WORD	289 col 58
+string
+//
+DELIM	289 col 60
+>
+//
+WORD	289 col 70
+gene_names
+//
+DELIM	289 col 71
+>
+//
+DELIM	289 col 73
+>
+//
+WORD	289 col 89
+amr_gene_summary
+//
+DELIM	291 col 9
+;
+//
+WORD	291 col 16
+mapping
+//
+DELIM	291 col 17
+<
+//
+WORD	291 col 24
+string
+//
+WORD	291 col 34
+superclass
+//
+DELIM	291 col 36
+,
+//
+WORD	291 col 46
+structure
+//
+DELIM	291 col 48
+{
+//
+WORD	291 col 52
+int
+//
+WORD	291 col 57
+genes
+//
+DELIM	291 col 59
+;
+//
+WORD	291 col 63
+int
+//
+WORD	291 col 73
+subsystems
+//
+DELIM	291 col 75
+;
+//
+DELIM	291 col 77
+}
+//
+DELIM	291 col 79
+>
+//
+WORD	291 col 96
+subsystem_summary
+//
+DELIM	293 col 9
+;
+//
+WORD	293 col 15
+float
+//
+WORD	293 col 24
+cds_ratio
+//
+DELIM	294 col 9
+;
+//
+WORD	294 col 15
+float
+//
+WORD	294 col 37
+hypothetical_cds_ratio
+//
+DELIM	295 col 9
+;
+//
+WORD	295 col 15
+float
+//
+WORD	295 col 32
+partial_cds_ratio
+//
+DELIM	296 col 9
+;
+//
+WORD	296 col 15
+float
+//
+WORD	296 col 30
+plfam_cds_ratio
+//
+DELIM	297 col 9
+;
+//
+WORD	297 col 15
+float
+//
+WORD	297 col 30
+pgfam_cds_ratio
+//
+DELIM	299 col 9
+;
+//
+WORD	299 col 13
+list
+//
+DELIM	299 col 14
+<
+//
+WORD	299 col 20
+string
+//
+DELIM	299 col 22
+>
+//
+WORD	299 col 42
+genome_quality_flags
+//
+DELIM	300 col 9
+;
+//
+WORD	300 col 16
+string
+//
+WORD	300 col 30
+genome_quality
+//
+DELIM	302 col 5
+;
+//
+DELIM	302 col 7
+}
+//
+WORD	302 col 29
+genome_quality_measure
+//
+DELIM	304 col 5
+;
+//
+WORD	304 col 13
+typedef
+//
+WORD	305 col 5
+structure
+//
+DELIM	306 col 9
+{
+//
+WORD	306 col 16
+string
+//
+WORD	306 col 29
+typing_method
+//
+DELIM	307 col 9
+;
+//
+WORD	307 col 16
+string
+//
+WORD	307 col 24
+database
+//
+DELIM	308 col 9
+;
+//
+WORD	308 col 16
+string
+//
+WORD	308 col 19
+tag
+//
+DELIM	309 col 9
+;
+//
+WORD	309 col 27
+analysis_event_id
+//
+WORD	309 col 35
+event_id
+//
+DELIM	310 col 5
+;
+//
+DELIM	310 col 7
+}
+//
+WORD	310 col 18
+strain_type
+//
+DELIM	312 col 5
+;
+//
+WORD	312 col 13
+typedef
+//
+WORD	313 col 5
+structure
+//
+DELIM	314 col 9
+{
+//
+WORD	314 col 16
+string
+//
+WORD	314 col 20
+name
+//
+DELIM	315 col 9
+;
+//
+WORD	315 col 16
+string
+//
+WORD	315 col 23
+version
+//
+DELIM	316 col 9
+;
+//
+WORD	316 col 16
+string
+//
+WORD	316 col 27
+description
+//
+DELIM	317 col 9
+;
+//
+WORD	317 col 16
+string
+//
+WORD	317 col 23
+comment
+//
+DELIM	318 col 9
+;
+//
+WORD	318 col 13
+list
+//
+DELIM	318 col 14
+<
+//
+WORD	318 col 20
+string
+//
+DELIM	318 col 22
+>
+//
+WORD	318 col 33
+antibiotics
+//
+DELIM	319 col 9
+;
+//
+WORD	319 col 15
+float
+//
+WORD	319 col 23
+accuracy
+//
+DELIM	320 col 9
+;
+//
+WORD	320 col 15
+float
+//
+WORD	320 col 35
+area_under_roc_curve
+//
+DELIM	321 col 9
+;
+//
+WORD	321 col 15
+float
+//
+WORD	321 col 23
+f1_score
+//
+DELIM	322 col 9
+;
+//
+WORD	322 col 16
+string
+//
+WORD	322 col 23
+sources
+//
+DELIM	323 col 9
+;
+//
+WORD	323 col 15
+float
+//
+WORD	323 col 40
+cumulative_adaboost_value
+//
+DELIM	324 col 9
+;
+//
+WORD	324 col 16
+string
+//
+WORD	324 col 27
+sensitivity
+//
+DELIM	325 col 9
+;
+//
+WORD	325 col 27
+analysis_event_id
+//
+WORD	325 col 35
+event_id
+//
+DELIM	326 col 9
+;
+//
+WORD	326 col 13
+list
+//
+DELIM	326 col 14
+<
+//
+WORD	326 col 19
+tuple
+//
+DELIM	326 col 20
+<
+//
+WORD	326 col 31
+feature_id
+//
+WORD	326 col 33
+id
+//
+DELIM	326 col 35
+,
+//
+WORD	326 col 41
+float
+//
+WORD	326 col 46
+alpha
+//
+DELIM	326 col 48
+,
+//
+WORD	326 col 52
+int
+//
+WORD	326 col 57
+round
+//
+DELIM	326 col 59
+,
+//
+WORD	326 col 66
+string
+//
+WORD	326 col 74
+function
+//
+DELIM	326 col 75
+>
+//
+DELIM	326 col 77
+>
+//
+WORD	326 col 85
+features
+//
+DELIM	327 col 5
+;
+//
+DELIM	327 col 7
+}
+//
+WORD	327 col 17
+classifier
+//
+DELIM	329 col 5
+;
+//
+WORD	329 col 13
+typedef
+//
+WORD	329 col 23
+structure
+//
+DELIM	330 col 9
+{
+//
+WORD	330 col 16
+string
+//
+WORD	330 col 23
+role_id
+//
+DELIM	331 col 9
+;
+//
+WORD	331 col 13
+list
+//
+DELIM	331 col 14
+<
+//
+WORD	331 col 24
+feature_id
+//
+DELIM	331 col 26
+>
+//
+WORD	331 col 34
+features
+//
+DELIM	332 col 5
+;
+//
+DELIM	332 col 7
+}
+//
+WORD	332 col 19
+role_binding
+//
+DELIM	334 col 5
+;
+//
+WORD	334 col 13
+typedef
+//
+WORD	334 col 23
+structure
+//
+DELIM	335 col 9
+{
+//
+WORD	335 col 16
+string
+//
+WORD	335 col 20
+name
+//
+DELIM	336 col 9
+;
+//
+WORD	336 col 14
+tuple
+//
+DELIM	336 col 15
+<
+//
+WORD	336 col 22
+string
+//
+WORD	336 col 32
+superclass
+//
+DELIM	336 col 34
+,
+//
+WORD	336 col 41
+string
+//
+WORD	336 col 46
+class
+//
+DELIM	336 col 48
+,
+//
+WORD	336 col 55
+string
+//
+WORD	336 col 63
+subclass
+//
+DELIM	336 col 65
+>
+//
+WORD	336 col 79
+classification
+//
+DELIM	337 col 9
+;
+//
+WORD	337 col 16
+string
+//
+WORD	337 col 28
+variant_code
+//
+DELIM	338 col 9
+;
+//
+WORD	338 col 13
+list
+//
+DELIM	338 col 14
+<
+//
+WORD	338 col 26
+role_binding
+//
+DELIM	338 col 28
+>
+//
+WORD	338 col 41
+role_bindings
+//
+DELIM	339 col 9
+;
+//
+WORD	339 col 27
+analysis_event_id
+//
+WORD	339 col 35
+event_id
+//
+DELIM	340 col 5
+;
+//
+DELIM	340 col 7
+}
+//
+WORD	340 col 21
+subsystem_data
+//
+DELIM	342 col 5
+;
+//
+COMMENT	344 col 9
+Variant support
+//
+WORD	344 col 17
+typedef
+//
+WORD	344 col 27
+structure
+//
+DELIM	345 col 13
+{
+//
+WORD	345 col 17
+int
+//
+WORD	345 col 20
+pos
+//
+DELIM	346 col 13
+;
+//
+WORD	346 col 20
+string
+//
+WORD	346 col 23
+ref
+//
+DELIM	347 col 13
+;
+//
+WORD	347 col 20
+string
+//
+WORD	347 col 23
+alt
+//
+DELIM	348 col 13
+;
+//
+WORD	348 col 19
+float
+//
+WORD	348 col 23
+freq
+//
+DELIM	349 col 13
+;
+//
+WORD	349 col 20
+string
+//
+WORD	349 col 31
+feature_pos
+//
+DELIM	350 col 13
+;
+//
+WORD	350 col 20
+string
+//
+WORD	350 col 26
+ref_aa
+//
+DELIM	351 col 13
+;
+//
+WORD	351 col 20
+string
+//
+WORD	351 col 29
+ref_codon
+//
+DELIM	352 col 13
+;
+//
+WORD	352 col 20
+string
+//
+WORD	352 col 26
+alt_aa
+//
+DELIM	353 col 13
+;
+//
+WORD	353 col 20
+string
+//
+WORD	353 col 29
+alt_codon
+//
+DELIM	354 col 9
+;
+//
+DELIM	354 col 11
+}
+//
+WORD	354 col 14
+snp
+//
+DELIM	355 col 9
+;
+//
+WORD	355 col 17
+typedef
+//
+WORD	355 col 27
+structure
+//
+DELIM	356 col 13
+{
+//
+WORD	356 col 20
+string
+//
+WORD	356 col 29
+reference
+//
+DELIM	357 col 13
+;
+//
+WORD	357 col 20
+string
+//
+WORD	357 col 24
+gene
+//
+DELIM	358 col 13
+;
+//
+WORD	358 col 17
+int
+//
+WORD	358 col 22
+frame
+//
+DELIM	359 col 13
+;
+//
+WORD	359 col 17
+list
+//
+DELIM	359 col 18
+<
+//
+WORD	359 col 21
+snp
+//
+DELIM	359 col 23
+>
+//
+WORD	359 col 27
+snps
+//
+DELIM	360 col 9
+;
+//
+DELIM	360 col 11
+}
+//
+WORD	360 col 18
+variant
+//
+DELIM	361 col 9
+;
+//
+WORD	361 col 17
+typedef
+//
+WORD	361 col 27
+structure
+//
+DELIM	362 col 13
+{
+//
+WORD	362 col 20
+string
+//
+WORD	362 col 24
+tool
+//
+DELIM	363 col 13
+;
+//
+WORD	363 col 20
+mapping
+//
+DELIM	363 col 21
+<
+//
+WORD	363 col 27
+string
+//
+DELIM	363 col 29
+,
+//
+WORD	363 col 35
+string
+//
+DELIM	363 col 37
+>
+//
+WORD	363 col 50
+tool_metadata
+//
+DELIM	364 col 13
+;
+//
+WORD	364 col 20
+mapping
+//
+DELIM	364 col 21
+<
+//
+WORD	364 col 27
+string
+//
+DELIM	364 col 29
+,
+//
+WORD	364 col 35
+string
+//
+DELIM	364 col 37
+>
+//
+WORD	364 col 48
+tool_output
+//
+DELIM	365 col 13
+;
+//
+WORD	365 col 17
+list
+//
+DELIM	365 col 18
+<
+//
+WORD	365 col 25
+variant
+//
+DELIM	365 col 27
+>
+//
+WORD	365 col 35
+variants
+//
+DELIM	366 col 13
+;
+//
+WORD	366 col 20
+string
+//
+WORD	366 col 27
+lineage
+//
+DELIM	367 col 13
+;
+//
+WORD	367 col 19
+float
+//
+WORD	367 col 30
+probability
+//
+DELIM	368 col 13
+;
+//
+WORD	368 col 20
+string
+//
+WORD	368 col 26
+status
+//
+DELIM	369 col 13
+;
+//
+WORD	369 col 20
+string
+//
+WORD	369 col 25
+notes
+//
+DELIM	370 col 9
+;
+//
+DELIM	370 col 11
+}
+//
+WORD	370 col 27
+computed_variant
+//
+DELIM	374 col 5
+;
+//
+COMMENT	375 col 5
+All of the information about particular genome
+//
+WORD	375 col 13
+typedef
+//
+WORD	375 col 23
+structure
+//
+DELIM	376 col 9
+{
+//
+WORD	376 col 19
+genome_id
+//
+WORD	376 col 21
+id
+//
+DELIM	377 col 9
+;
+//
+WORD	377 col 16
+string
+//
+WORD	377 col 31
+scientific_name
+//
+DELIM	378 col 9
+;
+//
+WORD	378 col 16
+string
+//
+WORD	378 col 22
+domain
+//
+DELIM	379 col 9
+;
+//
+WORD	379 col 13
+int
+//
+WORD	379 col 25
+genetic_code
+//
+DELIM	380 col 9
+;
+//
+WORD	380 col 16
+string
+//
+WORD	380 col 22
+source
+//
+DELIM	381 col 9
+;
+//
+WORD	381 col 16
+string
+//
+WORD	381 col 25
+source_id
+//
+DELIM	382 col 9
+;
+//
+WORD	382 col 16
+string
+//
+WORD	382 col 24
+taxonomy
+//
+DELIM	383 col 9
+;
+//
+WORD	383 col 13
+int
+//
+WORD	383 col 29
+ncbi_taxonomy_id
+//
+DELIM	384 col 9
+;
+//
+WORD	384 col 13
+list
+//
+DELIM	384 col 14
+<
+//
+WORD	384 col 19
+tuple
+//
+DELIM	384 col 20
+<
+//
+WORD	384 col 27
+string
+//
+WORD	384 col 37
+taxon_name
+//
+DELIM	384 col 39
+,
+//
+WORD	384 col 43
+int
+//
+WORD	384 col 51
+taxon_id
+//
+DELIM	384 col 53
+,
+//
+WORD	384 col 60
+string
+//
+WORD	384 col 70
+taxon_rank
+//
+DELIM	384 col 71
+>
+//
+DELIM	384 col 73
+>
+//
+WORD	384 col 85
+ncbi_lineage
+//
+DELIM	385 col 9
+;
+//
+WORD	385 col 16
+string
+//
+WORD	385 col 26
+ncbi_genus
+//
+DELIM	386 col 9
+;
+//
+WORD	386 col 16
+string
+//
+WORD	386 col 28
+ncbi_species
+//
+DELIM	387 col 9
+;
+//
+WORD	387 col 16
+string
+//
+WORD	387 col 21
+owner
+//
+DELIM	389 col 9
+;
+//
+WORD	389 col 32
+genome_quality_measure
+//
+WORD	389 col 39
+quality
+//
+DELIM	391 col 9
+;
+//
+WORD	391 col 13
+list
+//
+DELIM	391 col 14
+<
+//
+WORD	391 col 20
+contig
+//
+DELIM	391 col 22
+>
+//
+WORD	391 col 29
+contigs
+//
+DELIM	392 col 9
+;
+//
+WORD	392 col 16
+Handle
+//
+WORD	392 col 30
+contigs_handle
+//
+DELIM	394 col 9
+;
+//
+WORD	394 col 13
+list
+//
+DELIM	394 col 14
+<
+//
+WORD	394 col 21
+feature
+//
+DELIM	394 col 23
+>
+//
+WORD	394 col 31
+features
+//
+DELIM	396 col 9
+;
+//
+WORD	396 col 13
+list
+//
+DELIM	396 col 14
+<
+//
+WORD	396 col 26
+close_genome
+//
+DELIM	396 col 28
+>
+//
+WORD	396 col 41
+close_genomes
+//
+DELIM	398 col 9
+;
+//
+WORD	398 col 14
+list
+//
+DELIM	398 col 15
+<
+//
+WORD	398 col 29
+analysis_event
+//
+DELIM	398 col 31
+>
+//
+WORD	398 col 46
+analysis_events
+//
+DELIM	400 col 9
+;
+//
+WORD	400 col 13
+list
+//
+DELIM	400 col 14
+<
+//
+WORD	400 col 25
+strain_type
+//
+DELIM	400 col 27
+>
+//
+WORD	400 col 33
+typing
+//
+DELIM	401 col 9
+;
+//
+WORD	401 col 13
+list
+//
+DELIM	401 col 14
+<
+//
+WORD	401 col 24
+classifier
+//
+DELIM	401 col 26
+>
+//
+WORD	401 col 41
+classifications
+//
+DELIM	403 col 9
+;
+//
+WORD	403 col 13
+list
+//
+DELIM	403 col 14
+<
+//
+WORD	403 col 28
+subsystem_data
+//
+DELIM	403 col 30
+>
+//
+WORD	403 col 40
+subsystems
+//
+DELIM	405 col 9
+;
+//
+WORD	405 col 19
+structure
+//
+DELIM	406 col 13
+{
+//
+WORD	406 col 28
+job_statistics
+//
+WORD	406 col 36
+assembly
+//
+DELIM	407 col 13
+;
+//
+WORD	407 col 28
+job_statistics
+//
+WORD	407 col 38
+annotation
+//
+DELIM	408 col 9
+;
+//
+DELIM	408 col 11
+}
+//
+WORD	408 col 19
+job_data
+//
+DELIM	410 col 9
+;
+//
+WORD	410 col 13
+list
+//
+DELIM	410 col 14
+<
+//
+WORD	410 col 21
+mapping
+//
+DELIM	410 col 22
+<
+//
+WORD	410 col 29
+string
+//
+WORD	410 col 32
+key
+//
+DELIM	410 col 34
+,
+//
+WORD	410 col 41
+string
+//
+WORD	410 col 46
+value
+//
+DELIM	410 col 47
+>
+//
+DELIM	410 col 49
+>
+//
+WORD	410 col 61
+sra_metadata
+//
+DELIM	412 col 9
+;
+//
+WORD	412 col 13
+list
+//
+DELIM	412 col 14
+<
+//
+WORD	412 col 30
+computed_variant
+//
+DELIM	412 col 32
+>
+//
+WORD	412 col 49
+computed_variants
+//
+DELIM	417 col 5
+;
+//
+DELIM	417 col 7
+}
+//
+WORD	417 col 15
+genomeTO
+//
+DELIM	420 col 5
+;
+//
+COMMENT	428 col 5
+Genome metadata. We use this structure to define common metadata settings used in the API calls below. It is possible this data should have been separated in this way in the genome object itself, but there is an extant body of code that assumes the current structure of the genome object.
+//
+WORD	428 col 13
+typedef
+//
+WORD	429 col 5
+structure
+//
+DELIM	430 col 9
+{
+//
+WORD	430 col 19
+genome_id
+//
+WORD	430 col 21
+id
+//
+DELIM	431 col 9
+;
+//
+WORD	431 col 16
+string
+//
+WORD	431 col 31
+scientific_name
+//
+DELIM	432 col 9
+;
+//
+WORD	432 col 16
+string
+//
+WORD	432 col 22
+domain
+//
+DELIM	433 col 9
+;
+//
+WORD	433 col 13
+int
+//
+WORD	433 col 25
+genetic_code
+//
+DELIM	434 col 9
+;
+//
+WORD	434 col 16
+string
+//
+WORD	434 col 22
+source
+//
+DELIM	435 col 9
+;
+//
+WORD	435 col 16
+string
+//
+WORD	435 col 25
+source_id
+//
+DELIM	436 col 9
+;
+//
+WORD	436 col 13
+int
+//
+WORD	436 col 29
+ncbi_taxonomy_id
+//
+DELIM	437 col 9
+;
+//
+WORD	437 col 16
+string
+//
+WORD	437 col 24
+taxonomy
+//
+DELIM	438 col 9
+;
+//
+WORD	438 col 16
+string
+//
+WORD	438 col 21
+owner
+//
+DELIM	439 col 5
+;
+//
+DELIM	439 col 7
+}
+//
+WORD	439 col 22
+genome_metadata
+//
+DELIM	441 col 5
+;
+//
+WORD	441 col 13
+typedef
+//
+WORD	441 col 20
+string
+//
+WORD	441 col 29
+subsystem
+//
+DELIM	442 col 5
+;
+//
+WORD	442 col 13
+typedef
+//
+WORD	442 col 20
+string
+//
+WORD	442 col 27
+variant
+//
+DELIM	443 col 5
+;
+//
+WORD	443 col 13
+typedef
+//
+WORD	443 col 18
+tuple
+//
+DELIM	443 col 19
+<
+//
+WORD	443 col 28
+subsystem
+//
+DELIM	443 col 29
+,
+//
+WORD	443 col 36
+variant
+//
+DELIM	443 col 38
+>
+//
+WORD	443 col 58
+variant_of_subsystem
+//
+DELIM	444 col 5
+;
+//
+WORD	444 col 13
+typedef
+//
+WORD	444 col 17
+list
+//
+DELIM	444 col 18
+<
+//
+WORD	444 col 38
+variant_of_subsystem
+//
+DELIM	444 col 40
+>
+//
+WORD	444 col 63
+variant_subsystem_pairs
+//
+DELIM	445 col 5
+;
+//
+WORD	445 col 13
+typedef
+//
+WORD	445 col 20
+string
+//
+WORD	445 col 23
+fid
+//
+DELIM	446 col 5
+;
+//
+WORD	446 col 13
+typedef
+//
+WORD	446 col 20
+string
+//
+WORD	446 col 24
+role
+//
+DELIM	447 col 5
+;
+//
+WORD	447 col 13
+typedef
+//
+WORD	447 col 20
+string
+//
+WORD	447 col 28
+function
+//
+DELIM	448 col 5
+;
+//
+WORD	448 col 13
+typedef
+//
+WORD	448 col 18
+tuple
+//
+DELIM	448 col 19
+<
+//
+WORD	448 col 22
+fid
+//
+DELIM	448 col 23
+,
+//
+WORD	448 col 27
+role
+//
+DELIM	448 col 29
+>
+//
+WORD	448 col 42
+fid_role_pair
+//
+DELIM	449 col 5
+;
+//
+WORD	449 col 13
+typedef
+//
+WORD	449 col 17
+list
+//
+DELIM	449 col 18
+<
+//
+WORD	449 col 31
+fid_role_pair
+//
+DELIM	449 col 33
+>
+//
+WORD	449 col 47
+fid_role_pairs
+//
+DELIM	450 col 5
+;
+//
+WORD	450 col 13
+typedef
+//
+WORD	450 col 18
+tuple
+//
+DELIM	450 col 19
+<
+//
+WORD	450 col 22
+fid
+//
+DELIM	450 col 23
+,
+//
+WORD	450 col 31
+function
+//
+DELIM	450 col 33
+>
+//
+WORD	450 col 50
+fid_function_pair
+//
+DELIM	451 col 5
+;
+//
+WORD	451 col 13
+typedef
+//
+WORD	451 col 17
+list
+//
+DELIM	451 col 18
+<
+//
+WORD	451 col 35
+fid_function_pair
+//
+DELIM	451 col 37
+>
+//
+WORD	451 col 55
+fid_function_pairs
+//
+DELIM	453 col 5
+;
+//
+COMMENT	456 col 5
+Metabolic reconstruction represents the set of subsystems that we infer are present in this genome
+//
+WORD	456 col 13
+typedef
+//
+WORD	456 col 23
+structure
+//
+DELIM	457 col 9
+{
+//
+WORD	457 col 33
+variant_subsystem_pairs
+//
+WORD	457 col 43
+subsystems
+//
+DELIM	458 col 9
+;
+//
+WORD	458 col 24
+fid_role_pairs
+//
+WORD	458 col 32
+bindings
+//
+DELIM	459 col 9
+;
+//
+WORD	459 col 28
+fid_function_pairs
+//
+WORD	459 col 39
+assignments
+//
+DELIM	460 col 5
+;
+//
+DELIM	460 col 7
+}
+//
+WORD	460 col 23
+reconstructionTO
+//
+DELIM	462 col 5
+;
+//
+WORD	462 col 13
+typedef
+//
+WORD	462 col 18
+tuple
+//
+DELIM	462 col 19
+<
+//
+WORD	462 col 22
+fid
+//
+DELIM	462 col 23
+,
+//
+WORD	462 col 26
+md5
+//
+DELIM	462 col 27
+,
+//
+WORD	462 col 35
+location
+//
+DELIM	462 col 36
+,
+//
+WORD	462 col 44
+function
+//
+DELIM	462 col 46
+>
+//
+WORD	462 col 60
+fid_data_tuple
+//
+DELIM	463 col 5
+;
+//
+WORD	463 col 13
+typedef
+//
+WORD	463 col 17
+list
+//
+DELIM	463 col 18
+<
+//
+WORD	463 col 32
+fid_data_tuple
+//
+DELIM	463 col 34
+>
+//
+WORD	463 col 49
+fid_data_tuples
+//
+DELIM	465 col 5
+;
+//
+COMMENT	468 col 5
+Given one or more Central Store genome IDs, convert them into genome objects.
+//
+WORD	468 col 13
+funcdef
+//
+WORD	468 col 34
+genome_ids_to_genomes
+//
+DELIM	468 col 35
+(
+//
+WORD	468 col 39
+list
+//
+DELIM	468 col 40
+<
+//
+WORD	468 col 49
+genome_id
+//
+DELIM	468 col 51
+>
+//
+WORD	468 col 54
+ids
+//
+DELIM	468 col 56
+)
+//
+WORD	468 col 64
+returns
+//
+DELIM	468 col 65
+(
+//
+WORD	468 col 69
+list
+//
+DELIM	468 col 70
+<
+//
+WORD	468 col 78
+genomeTO
+//
+DELIM	468 col 80
+>
+//
+WORD	468 col 87
+genomes
+//
+DELIM	468 col 88
+)
+//
+DELIM	470 col 5
+;
+//
+COMMENT	473 col 5
+Create a new genome object and assign metadata.
+//
+WORD	473 col 13
+funcdef
+//
+WORD	473 col 26
+create_genome
+//
+DELIM	473 col 27
+(
+//
+WORD	473 col 43
+genome_metadata
+//
+WORD	473 col 51
+metadata
+//
+DELIM	473 col 53
+)
+//
+WORD	473 col 61
+returns
+//
+DELIM	473 col 62
+(
+//
+WORD	473 col 71
+genomeTO
+//
+WORD	473 col 77
+genome
+//
+DELIM	473 col 78
+)
+//
+DELIM	475 col 5
+;
+//
+COMMENT	478 col 5
+Create a new genome object from one or more genbank files.
+//
+WORD	478 col 13
+funcdef
+//
+WORD	478 col 39
+create_genome_from_genbank
+//
+DELIM	478 col 40
+(
+//
+WORD	478 col 47
+string
+//
+WORD	478 col 54
+gb_data
+//
+DELIM	478 col 56
+)
+//
+WORD	478 col 64
+returns
+//
+DELIM	478 col 65
+(
+//
+WORD	478 col 74
+genomeTO
+//
+WORD	478 col 80
+genome
+//
+DELIM	478 col 81
+)
+//
+DELIM	480 col 5
+;
+//
+COMMENT	483 col 5
+Create a new genome object based on data from the SEED project.
+//
+WORD	483 col 13
+funcdef
+//
+WORD	483 col 36
+create_genome_from_SEED
+//
+DELIM	483 col 37
+(
+//
+WORD	483 col 44
+string
+//
+WORD	483 col 53
+genome_id
+//
+DELIM	483 col 55
+)
+//
+WORD	483 col 63
+returns
+//
+DELIM	483 col 64
+(
+//
+WORD	483 col 73
+genomeTO
+//
+WORD	483 col 79
+genome
+//
+DELIM	483 col 80
+)
+//
+DELIM	485 col 5
+;
+//
+COMMENT	488 col 5
+Create a new genome object based on a RAST genome.
+//
+WORD	488 col 13
+funcdef
+//
+WORD	488 col 36
+create_genome_from_RAST
+//
+DELIM	488 col 37
+(
+//
+WORD	488 col 44
+string
+//
+WORD	488 col 60
+genome_or_job_id
+//
+DELIM	488 col 62
+)
+//
+WORD	488 col 70
+returns
+//
+DELIM	488 col 71
+(
+//
+WORD	488 col 80
+genomeTO
+//
+WORD	488 col 86
+genome
+//
+DELIM	488 col 87
+)
+//
+DELIM	488 col 89
+;
+//
+COMMENT	490 col 5
+authentication optional;
+//
+COMMENT	493 col 5
+Modify genome metadata.
+//
+WORD	493 col 13
+funcdef
+//
+WORD	493 col 25
+set_metadata
+//
+DELIM	493 col 26
+(
+//
+WORD	493 col 35
+genomeTO
+//
+WORD	493 col 44
+genome_in
+//
+DELIM	493 col 46
+,
+//
+WORD	493 col 62
+genome_metadata
+//
+WORD	493 col 70
+metadata
+//
+DELIM	493 col 72
+)
+//
+WORD	493 col 80
+returns
+//
+DELIM	493 col 81
+(
+//
+WORD	493 col 90
+genomeTO
+//
+WORD	493 col 100
+genome_out
+//
+DELIM	493 col 101
+)
+//
+DELIM	495 col 5
+;
+//
+COMMENT	498 col 5
+Add a set of contigs to the genome object.
+//
+WORD	498 col 13
+funcdef
+//
+WORD	498 col 24
+add_contigs
+//
+DELIM	498 col 25
+(
+//
+WORD	498 col 34
+genomeTO
+//
+WORD	498 col 43
+genome_in
+//
+DELIM	498 col 45
+,
+//
+WORD	498 col 49
+list
+//
+DELIM	498 col 50
+<
+//
+WORD	498 col 56
+contig
+//
+DELIM	498 col 58
+>
+//
+WORD	498 col 65
+contigs
+//
+DELIM	498 col 67
+)
+//
+WORD	498 col 75
+returns
+//
+DELIM	498 col 76
+(
+//
+WORD	498 col 85
+genomeTO
+//
+WORD	498 col 95
+genome_out
+//
+DELIM	498 col 96
+)
+//
+DELIM	500 col 5
+;
+//
+COMMENT	504 col 5
+Add a set of contigs to the genome object, loading the contigs from the given handle service handle.
+//
+WORD	504 col 13
+funcdef
+//
+WORD	504 col 36
+add_contigs_from_handle
+//
+DELIM	504 col 37
+(
+//
+WORD	504 col 46
+genomeTO
+//
+WORD	504 col 55
+genome_in
+//
+DELIM	504 col 57
+,
+//
+WORD	504 col 61
+list
+//
+DELIM	504 col 62
+<
+//
+WORD	504 col 68
+contig
+//
+DELIM	504 col 70
+>
+//
+WORD	504 col 77
+contigs
+//
+DELIM	504 col 79
+)
+//
+WORD	504 col 87
+returns
+//
+DELIM	504 col 88
+(
+//
+WORD	504 col 97
+genomeTO
+//
+WORD	504 col 107
+genome_out
+//
+DELIM	504 col 108
+)
+//
+DELIM	506 col 5
+;
+//
+COMMENT	509 col 5
+Import SRA metadata from initial assembly, if present.
+//
+WORD	509 col 13
+funcdef
+//
+WORD	509 col 32
+import_sra_metadata
+//
+DELIM	509 col 33
+(
+//
+WORD	509 col 42
+genomeTO
+//
+WORD	509 col 51
+genome_in
+//
+DELIM	509 col 53
+)
+//
+WORD	509 col 61
+returns
+//
+DELIM	509 col 62
+(
+//
+WORD	509 col 71
+genomeTO
+//
+WORD	509 col 81
+genome_out
+//
+DELIM	509 col 82
+)
+//
+DELIM	511 col 5
+;
+//
+COMMENT	514 col 5
+Compute SARS2 variation data.
+//
+WORD	514 col 13
+funcdef
+//
+WORD	514 col 36
+compute_sars2_variation
+//
+DELIM	514 col 37
+(
+//
+WORD	514 col 46
+genomeTO
+//
+WORD	514 col 55
+genome_in
+//
+DELIM	514 col 57
+)
+//
+WORD	514 col 65
+returns
+//
+DELIM	514 col 67
+(
+//
+WORD	514 col 76
+genomeTO
+//
+WORD	514 col 86
+genome_out
+//
+DELIM	514 col 87
+)
+//
+DELIM	516 col 5
+;
+//
+COMMENT	520 col 5
+This tuple defines a compact form for defining features to be batch-loaded into a genome object.
+//
+WORD	520 col 13
+typedef
+//
+WORD	520 col 19
+tuple
+//
+DELIM	520 col 20
+<
+//
+WORD	520 col 27
+string
+//
+WORD	520 col 29
+id
+//
+DELIM	520 col 31
+,
+//
+WORD	520 col 38
+string
+//
+WORD	520 col 46
+location
+//
+DELIM	520 col 48
+,
+//
+WORD	520 col 55
+string
+//
+WORD	520 col 67
+feature_type
+//
+DELIM	520 col 69
+,
+//
+WORD	520 col 76
+string
+//
+WORD	520 col 84
+function
+//
+DELIM	520 col 86
+,
+//
+WORD	520 col 93
+string
+//
+WORD	520 col 100
+aliases
+//
+DELIM	520 col 102
+>
+//
+WORD	520 col 117
+compact_feature
+//
+DELIM	522 col 5
+;
+//
+COMMENT	525 col 5
+Add a set of features in tabular form.
+//
+WORD	525 col 13
+funcdef
+//
+WORD	525 col 25
+add_features
+//
+DELIM	525 col 26
+(
+//
+WORD	525 col 35
+genomeTO
+//
+WORD	525 col 44
+genome_in
+//
+DELIM	525 col 46
+,
+//
+WORD	525 col 50
+list
+//
+DELIM	525 col 51
+<
+//
+WORD	525 col 66
+compact_feature
+//
+DELIM	525 col 68
+>
+//
+WORD	525 col 76
+features
+//
+DELIM	525 col 78
+)
+//
+WORD	525 col 86
+returns
+//
+DELIM	525 col 87
+(
+//
+WORD	525 col 96
+genomeTO
+//
+WORD	525 col 106
+genome_out
+//
+DELIM	525 col 107
+)
+//
+DELIM	527 col 5
+;
+//
+WORD	527 col 13
+funcdef
+//
+WORD	527 col 42
+genomeTO_to_reconstructionTO
+//
+DELIM	527 col 43
+(
+//
+WORD	527 col 51
+genomeTO
+//
+DELIM	527 col 53
+)
+//
+WORD	527 col 61
+returns
+//
+DELIM	527 col 62
+(
+//
+WORD	527 col 78
+reconstructionTO
+//
+DELIM	527 col 79
+)
+//
+DELIM	528 col 5
+;
+//
+WORD	528 col 13
+funcdef
+//
+WORD	528 col 38
+genomeTO_to_feature_data
+//
+DELIM	528 col 39
+(
+//
+WORD	528 col 47
+genomeTO
+//
+DELIM	528 col 49
+)
+//
+WORD	528 col 57
+returns
+//
+DELIM	528 col 58
+(
+//
+WORD	528 col 73
+fid_data_tuples
+//
+DELIM	528 col 74
+)
+//
+DELIM	529 col 5
+;
+//
+WORD	529 col 13
+funcdef
+//
+WORD	529 col 39
+reconstructionTO_to_roles
+//
+DELIM	529 col 40
+(
+//
+WORD	529 col 56
+reconstructionTO
+//
+DELIM	529 col 58
+)
+//
+WORD	529 col 66
+returns
+//
+DELIM	529 col 67
+(
+//
+WORD	529 col 71
+list
+//
+DELIM	529 col 72
+<
+//
+WORD	529 col 76
+role
+//
+DELIM	529 col 77
+>
+//
+DELIM	529 col 78
+)
+//
+DELIM	530 col 5
+;
+//
+WORD	530 col 13
+funcdef
+//
+WORD	530 col 43
+reconstructionTO_to_subsystems
+//
+DELIM	530 col 44
+(
+//
+WORD	530 col 60
+reconstructionTO
+//
+DELIM	530 col 62
+)
+//
+WORD	530 col 70
+returns
+//
+DELIM	530 col 71
+(
+//
+WORD	530 col 94
+variant_subsystem_pairs
+//
+DELIM	530 col 95
+)
+//
+DELIM	532 col 5
+;
+//
+COMMENT	536 col 5
+Given a genome object populated with contig data, perform gene calling and functional annotation and return the annotated genome.
+//
+WORD	536 col 13
+funcdef
+//
+WORD	536 col 37
+assign_functions_to_CDSs
+//
+DELIM	536 col 38
+(
+//
+WORD	536 col 46
+genomeTO
+//
+DELIM	536 col 48
+)
+//
+WORD	536 col 56
+returns
+//
+DELIM	536 col 57
+(
+//
+WORD	536 col 65
+genomeTO
+//
+DELIM	536 col 66
+)
+//
+DELIM	537 col 5
+;
+//
+WORD	537 col 13
+funcdef
+//
+WORD	537 col 28
+annotate_genome
+//
+DELIM	537 col 29
+(
+//
+WORD	537 col 37
+genomeTO
+//
+DELIM	537 col 39
+)
+//
+WORD	537 col 47
+returns
+//
+DELIM	537 col 48
+(
+//
+WORD	537 col 56
+genomeTO
+//
+DELIM	537 col 57
+)
+//
+DELIM	539 col 5
+;
+//
+WORD	539 col 13
+funcdef
+//
+WORD	539 col 32
+call_selenoproteins
+//
+DELIM	539 col 33
+(
+//
+WORD	539 col 41
+genomeTO
+//
+DELIM	539 col 43
+)
+//
+WORD	539 col 51
+returns
+//
+DELIM	539 col 52
+(
+//
+WORD	539 col 60
+genomeTO
+//
+DELIM	539 col 61
+)
+//
+DELIM	540 col 5
+;
+//
+WORD	540 col 13
+funcdef
+//
+WORD	540 col 35
+call_pyrrolysoproteins
+//
+DELIM	540 col 36
+(
+//
+WORD	540 col 44
+genomeTO
+//
+DELIM	540 col 46
+)
+//
+WORD	540 col 54
+returns
+//
+DELIM	540 col 55
+(
+//
+WORD	540 col 63
+genomeTO
+//
+DELIM	540 col 64
+)
+//
+DELIM	542 col 5
+;
+//
+COMMENT	545 col 5
+Given a genome typed object, call selenoprotein features.
+//
+WORD	545 col 13
+funcdef
+//
+WORD	545 col 40
+call_features_selenoprotein
+//
+DELIM	545 col 41
+(
+//
+WORD	545 col 49
+genomeTO
+//
+DELIM	545 col 51
+)
+//
+WORD	545 col 59
+returns
+//
+DELIM	545 col 60
+(
+//
+WORD	545 col 68
+genomeTO
+//
+DELIM	545 col 69
+)
+//
+DELIM	547 col 5
+;
+//
+COMMENT	550 col 5
+Given a genome typed object, call pyrrolysoprotein features.
+//
+WORD	550 col 13
+funcdef
+//
+WORD	550 col 43
+call_features_pyrrolysoprotein
+//
+DELIM	550 col 44
+(
+//
+WORD	550 col 52
+genomeTO
+//
+DELIM	550 col 54
+)
+//
+WORD	550 col 62
+returns
+//
+DELIM	550 col 63
+(
+//
+WORD	550 col 71
+genomeTO
+//
+DELIM	550 col 72
+)
+//
+DELIM	552 col 5
+;
+//
+COMMENT	555 col 5
+Given a genome typed object, call insertion sequences.
+//
+WORD	555 col 13
+funcdef
+//
+WORD	555 col 46
+call_features_insertion_sequences
+//
+DELIM	555 col 47
+(
+//
+WORD	555 col 55
+genomeTO
+//
+DELIM	555 col 57
+)
+//
+WORD	555 col 65
+returns
+//
+DELIM	555 col 66
+(
+//
+WORD	555 col 74
+genomeTO
+//
+DELIM	555 col 75
+)
+//
+DELIM	557 col 5
+;
+//
+COMMENT	558 col 5
+[ validate.enum("5S", "SSU", "LSU", "ALL") ]
+//
+WORD	558 col 13
+typedef
+//
+WORD	558 col 20
+string
+//
+WORD	558 col 28
+rna_type
+//
+DELIM	560 col 5
+;
+//
+COMMENT	573 col 5
+Given a genome typed object, find instances of ribosomal RNAs in the genome.
+The types parameter is used to select the types of RNAs to call. It is a list of strings where each value is one of
+   "5S"    "SSU"    "LSU"
+or "ALL" to choose all available rRNA types.
+//
+WORD	573 col 13
+funcdef
+//
+WORD	573 col 36
+call_features_rRNA_SEED
+//
+DELIM	573 col 37
+(
+//
+WORD	573 col 46
+genomeTO
+//
+WORD	573 col 55
+genome_in
+//
+DELIM	573 col 57
+,
+//
+WORD	573 col 61
+list
+//
+DELIM	573 col 62
+<
+//
+WORD	573 col 70
+rna_type
+//
+DELIM	573 col 72
+>
+//
+WORD	573 col 77
+types
+//
+DELIM	573 col 79
+)
+//
+WORD	573 col 87
+returns
+//
+DELIM	573 col 88
+(
+//
+WORD	573 col 97
+genomeTO
+//
+WORD	573 col 107
+genome_out
+//
+DELIM	573 col 108
+)
+//
+DELIM	575 col 5
+;
+//
+COMMENT	579 col 5
+Given a genome typed object, find instances of tRNAs in the genome.
+//
+WORD	579 col 13
+funcdef
+//
+WORD	579 col 40
+call_features_tRNA_trnascan
+//
+DELIM	579 col 41
+(
+//
+WORD	579 col 50
+genomeTO
+//
+WORD	579 col 59
+genome_in
+//
+DELIM	579 col 61
+)
+//
+WORD	579 col 69
+returns
+//
+DELIM	579 col 70
+(
+//
+WORD	579 col 79
+genomeTO
+//
+WORD	579 col 89
+genome_out
+//
+DELIM	579 col 90
+)
+//
+DELIM	581 col 5
+;
+//
+COMMENT	585 col 5
+Given a genome typed object, find instances of all RNAs we currently have support for detecting.
+//
+WORD	585 col 13
+funcdef
+//
+WORD	585 col 22
+call_RNAs
+//
+DELIM	585 col 23
+(
+//
+WORD	585 col 32
+genomeTO
+//
+WORD	585 col 41
+genome_in
+//
+DELIM	585 col 43
+)
+//
+WORD	585 col 51
+returns
+//
+DELIM	585 col 52
+(
+//
+WORD	585 col 61
+genomeTO
+//
+WORD	585 col 71
+genome_out
+//
+DELIM	585 col 72
+)
+//
+DELIM	587 col 5
+;
+//
+WORD	587 col 13
+typedef
+//
+WORD	588 col 5
+structure
+//
+DELIM	589 col 9
+{
+//
+WORD	589 col 16
+string
+//
+WORD	589 col 30
+reference_name
+//
+DELIM	590 col 9
+;
+//
+WORD	590 col 14
+bool
+//
+WORD	590 col 38
+remove_existing_features
+//
+DELIM	591 col 5
+;
+//
+DELIM	591 col 7
+}
+//
+WORD	591 col 24
+vigor4_parameters
+//
+DELIM	593 col 5
+;
+//
+WORD	593 col 13
+funcdef
+//
+WORD	593 col 33
+call_features_vigor4
+//
+DELIM	593 col 34
+(
+//
+WORD	593 col 42
+genomeTO
+//
+DELIM	593 col 44
+,
+//
+WORD	593 col 62
+vigor4_parameters
+//
+WORD	593 col 68
+params
+//
+DELIM	593 col 70
+)
+//
+WORD	593 col 78
+returns
+//
+DELIM	593 col 79
+(
+//
+WORD	593 col 87
+genomeTO
+//
+DELIM	593 col 88
+)
+//
+DELIM	595 col 5
+;
+//
+WORD	595 col 13
+typedef
+//
+WORD	596 col 5
+structure
+//
+DELIM	597 col 9
+{
+//
+WORD	597 col 14
+bool
+//
+WORD	597 col 38
+remove_existing_features
+//
+DELIM	598 col 5
+;
+//
+DELIM	598 col 7
+}
+//
+WORD	598 col 34
+vipr_mat_peptide_parameters
+//
+DELIM	600 col 5
+;
+//
+WORD	600 col 13
+funcdef
+//
+WORD	600 col 43
+call_features_vipr_mat_peptide
+//
+DELIM	600 col 44
+(
+//
+WORD	600 col 52
+genomeTO
+//
+DELIM	600 col 54
+,
+//
+WORD	600 col 82
+vipr_mat_peptide_parameters
+//
+WORD	600 col 88
+params
+//
+DELIM	600 col 90
+)
+//
+WORD	600 col 98
+returns
+//
+DELIM	600 col 99
+(
+//
+WORD	600 col 107
+genomeTO
+//
+DELIM	600 col 108
+)
+//
+DELIM	602 col 5
+;
+//
+WORD	602 col 13
+typedef
+//
+WORD	603 col 5
+structure
+//
+DELIM	604 col 9
+{
+//
+WORD	604 col 13
+int
+//
+WORD	604 col 29
+min_training_len
+//
+DELIM	605 col 5
+;
+//
+DELIM	605 col 7
+}
+//
+WORD	605 col 26
+glimmer3_parameters
+//
+DELIM	607 col 5
+;
+//
+WORD	607 col 13
+funcdef
+//
+WORD	607 col 39
+call_features_CDS_glimmer3
+//
+DELIM	607 col 40
+(
+//
+WORD	607 col 48
+genomeTO
+//
+DELIM	607 col 50
+,
+//
+WORD	607 col 70
+glimmer3_parameters
+//
+WORD	607 col 76
+params
+//
+DELIM	607 col 78
+)
+//
+WORD	607 col 86
+returns
+//
+DELIM	607 col 87
+(
+//
+WORD	607 col 95
+genomeTO
+//
+DELIM	607 col 96
+)
+//
+DELIM	609 col 5
+;
+//
+WORD	609 col 13
+funcdef
+//
+WORD	609 col 39
+call_features_CDS_prodigal
+//
+DELIM	609 col 40
+(
+//
+WORD	609 col 48
+genomeTO
+//
+DELIM	609 col 50
+)
+//
+WORD	609 col 58
+returns
+//
+DELIM	609 col 59
+(
+//
+WORD	609 col 67
+genomeTO
+//
+DELIM	609 col 68
+)
+//
+DELIM	610 col 5
+;
+//
+WORD	610 col 13
+funcdef
+//
+WORD	610 col 39
+call_features_CDS_genemark
+//
+DELIM	610 col 40
+(
+//
+WORD	610 col 48
+genomeTO
+//
+DELIM	610 col 50
+)
+//
+WORD	610 col 58
+returns
+//
+DELIM	610 col 59
+(
+//
+WORD	610 col 67
+genomeTO
+//
+DELIM	610 col 68
+)
+//
+DELIM	611 col 5
+;
+//
+WORD	611 col 13
+funcdef
+//
+WORD	611 col 40
+call_features_CDS_phanotate
+//
+DELIM	611 col 41
+(
+//
+WORD	611 col 49
+genomeTO
+//
+DELIM	611 col 51
+)
+//
+WORD	611 col 59
+returns
+//
+DELIM	611 col 60
+(
+//
+WORD	611 col 68
+genomeTO
+//
+DELIM	611 col 69
+)
+//
+DELIM	613 col 5
+;
+//
+WORD	613 col 13
+typedef
+//
+WORD	614 col 5
+structure
+//
+DELIM	615 col 9
+{
+//
+WORD	615 col 13
+int
+//
+WORD	615 col 34
+minimum_contig_length
+//
+DELIM	616 col 9
+;
+//
+WORD	616 col 15
+float
+//
+WORD	616 col 40
+max_homopolymer_frequency
+//
+DELIM	617 col 9
+;
+//
+WORD	617 col 15
+float
+//
+WORD	617 col 37
+max_dna_in_translation
+//
+DELIM	618 col 5
+;
+//
+DELIM	618 col 7
+}
+//
+WORD	618 col 44
+prune_invalid_CDS_features_parameters
+//
+DELIM	619 col 5
+;
+//
+WORD	619 col 13
+funcdef
+//
+WORD	619 col 39
+prune_invalid_CDS_features
+//
+DELIM	619 col 40
+(
+//
+WORD	619 col 49
+genomeTO
+//
+WORD	619 col 58
+genome_in
+//
+DELIM	619 col 60
+,
+//
+WORD	619 col 98
+prune_invalid_CDS_features_parameters
+//
+WORD	619 col 104
+params
+//
+DELIM	619 col 106
+)
+//
+WORD	619 col 114
+returns
+//
+DELIM	619 col 115
+(
+//
+WORD	619 col 124
+genomeTO
+//
+WORD	619 col 134
+genome_out
+//
+DELIM	619 col 135
+)
+//
+DELIM	621 col 5
+;
+//
+WORD	621 col 13
+typedef
+//
+WORD	622 col 5
+structure
+//
+DELIM	623 col 9
+{
+//
+WORD	623 col 16
+string
+//
+WORD	623 col 34
+reference_database
+//
+DELIM	624 col 9
+;
+//
+WORD	624 col 16
+string
+//
+WORD	624 col 28
+reference_id
+//
+DELIM	625 col 9
+;
+//
+WORD	625 col 13
+int
+//
+WORD	625 col 22
+kmer_size
+//
+DELIM	626 col 5
+;
+//
+DELIM	626 col 7
+}
+//
+WORD	626 col 33
+SEED_projection_parameters
+//
+DELIM	628 col 5
+;
+//
+WORD	628 col 13
+funcdef
+//
+WORD	628 col 46
+call_features_CDS_SEED_projection
+//
+DELIM	628 col 47
+(
+//
+WORD	628 col 55
+genomeTO
+//
+DELIM	628 col 57
+,
+//
+WORD	628 col 84
+SEED_projection_parameters
+//
+WORD	628 col 90
+params
+//
+DELIM	628 col 92
+)
+//
+WORD	628 col 100
+returns
+//
+DELIM	628 col 101
+(
+//
+WORD	628 col 109
+genomeTO
+//
+DELIM	628 col 110
+)
+//
+DELIM	629 col 5
+;
+//
+WORD	629 col 13
+funcdef
+//
+WORD	629 col 43
+call_features_CDS_FragGeneScan
+//
+DELIM	629 col 44
+(
+//
+WORD	629 col 52
+genomeTO
+//
+DELIM	629 col 54
+)
+//
+WORD	629 col 62
+returns
+//
+DELIM	629 col 63
+(
+//
+WORD	629 col 71
+genomeTO
+//
+DELIM	629 col 72
+)
+//
+DELIM	631 col 5
+;
+//
+WORD	631 col 13
+typedef
+//
+WORD	632 col 5
+structure
+//
+DELIM	633 col 9
+{
+//
+WORD	633 col 15
+float
+//
+WORD	633 col 27
+min_identity
+//
+DELIM	634 col 9
+;
+//
+WORD	634 col 13
+int
+//
+WORD	634 col 23
+min_length
+//
+DELIM	635 col 5
+;
+//
+DELIM	635 col 7
+}
+//
+WORD	635 col 36
+repeat_region_SEED_parameters
+//
+DELIM	636 col 5
+;
+//
+WORD	636 col 13
+funcdef
+//
+WORD	636 col 45
+call_features_repeat_region_SEED
+//
+DELIM	636 col 46
+(
+//
+WORD	636 col 55
+genomeTO
+//
+WORD	636 col 64
+genome_in
+//
+DELIM	636 col 66
+,
+//
+WORD	636 col 96
+repeat_region_SEED_parameters
+//
+WORD	636 col 102
+params
+//
+DELIM	636 col 104
+)
+//
+WORD	636 col 112
+returns
+//
+DELIM	636 col 113
+(
+//
+WORD	636 col 122
+genomeTO
+//
+WORD	636 col 132
+genome_out
+//
+DELIM	636 col 133
+)
+//
+DELIM	638 col 5
+;
+//
+WORD	638 col 13
+funcdef
+//
+WORD	638 col 42
+call_features_prophage_phispy
+//
+DELIM	638 col 43
+(
+//
+WORD	638 col 52
+genomeTO
+//
+WORD	638 col 61
+genome_in
+//
+DELIM	638 col 63
+)
+//
+WORD	638 col 71
+returns
+//
+DELIM	638 col 72
+(
+//
+WORD	638 col 81
+genomeTO
+//
+WORD	638 col 91
+genome_out
+//
+DELIM	638 col 92
+)
+//
+DELIM	640 col 5
+;
+//
+WORD	640 col 13
+funcdef
+//
+WORD	640 col 43
+call_features_scan_for_matches
+//
+DELIM	640 col 44
+(
+//
+WORD	640 col 53
+genomeTO
+//
+WORD	640 col 62
+genome_in
+//
+DELIM	640 col 64
+,
+//
+WORD	640 col 71
+string
+//
+WORD	640 col 78
+pattern
+//
+DELIM	640 col 80
+,
+//
+WORD	640 col 87
+string
+//
+WORD	640 col 99
+feature_type
+//
+DELIM	640 col 101
+)
+//
+WORD	640 col 109
+returns
+//
+DELIM	640 col 110
+(
+//
+WORD	640 col 119
+genomeTO
+//
+WORD	640 col 129
+genome_out
+//
+DELIM	640 col 130
+)
+//
+DELIM	642 col 5
+;
+//
+WORD	642 col 13
+typedef
+//
+WORD	643 col 5
+structure
+//
+DELIM	644 col 9
+{
+//
+WORD	644 col 13
+int
+//
+WORD	644 col 27
+min_gap_length
+//
+DELIM	645 col 9
+;
+//
+WORD	645 col 13
+int
+//
+WORD	645 col 38
+monopolymer_repeat_length
+//
+DELIM	646 col 5
+;
+//
+DELIM	646 col 7
+}
+//
+WORD	646 col 30
+assembly_gap_parameters
+//
+DELIM	648 col 5
+;
+//
+COMMENT	658 col 5
+Given a genome typed object, call gap features. Gaps are known regions in the contig where the nucleotide sequence is not known but where there is evidence that a run of DNA does exist joining the sequenced data on either side of the gap.
+Gaps are currently called using one of two methods. Genomes that originated as genbank files may have a CONTIGS entry that defines the contig and gap regions. Genomes that do not have a CONTIGS entry are scanned for runs of "n" characters.
+//
+WORD	658 col 13
+funcdef
+//
+WORD	658 col 39
+call_features_assembly_gap
+//
+DELIM	658 col 40
+(
+//
+WORD	658 col 49
+genomeTO
+//
+WORD	658 col 58
+genome_in
+//
+DELIM	658 col 60
+,
+//
+WORD	658 col 84
+assembly_gap_parameters
+//
+WORD	658 col 90
+params
+//
+DELIM	658 col 92
+)
+//
+WORD	658 col 100
+returns
+//
+DELIM	658 col 101
+(
+//
+WORD	658 col 110
+genomeTO
+//
+WORD	658 col 120
+genome_out
+//
+DELIM	658 col 121
+)
+//
+DELIM	660 col 5
+;
+//
+WORD	660 col 13
+typedef
+//
+WORD	661 col 5
+structure
+//
+DELIM	662 col 9
+{
+//
+WORD	662 col 13
+int
+//
+WORD	662 col 16
+tmp
+//
+DELIM	663 col 5
+;
+//
+DELIM	663 col 7
+}
+//
+WORD	663 col 41
+split_gap_spanning_features_params
+//
+DELIM	665 col 5
+;
+//
+WORD	665 col 13
+funcdef
+//
+WORD	665 col 40
+split_gap_spanning_features
+//
+DELIM	665 col 41
+(
+//
+WORD	665 col 50
+genomeTO
+//
+WORD	665 col 59
+genome_in
+//
+DELIM	665 col 61
+,
+//
+WORD	665 col 95
+split_gap_spanning_features_params
+//
+DELIM	666 col 17
+)
+//
+WORD	666 col 25
+returns
+//
+DELIM	666 col 26
+(
+//
+WORD	666 col 35
+genomeTO
+//
+WORD	666 col 45
+genome_out
+//
+DELIM	666 col 46
+)
+//
+DELIM	668 col 5
+;
+//
+WORD	668 col 13
+funcdef
+//
+WORD	668 col 44
+translate_untranslated_proteins
+//
+DELIM	668 col 45
+(
+//
+WORD	668 col 54
+genomeTO
+//
+WORD	668 col 63
+genome_in
+//
+DELIM	668 col 65
+)
+//
+WORD	668 col 73
+returns
+//
+DELIM	668 col 74
+(
+//
+WORD	668 col 83
+genomeTO
+//
+WORD	668 col 93
+genome_out
+//
+DELIM	668 col 94
+)
+//
+DELIM	670 col 5
+;
+//
+WORD	670 col 13
+typedef
+//
+WORD	671 col 5
+structure
+//
+DELIM	672 col 9
+{
+//
+WORD	672 col 13
+int
+//
+WORD	672 col 39
+annotate_hypothetical_only
+//
+DELIM	673 col 9
+;
+//
+WORD	673 col 13
+int
+//
+WORD	673 col 31
+annotate_null_only
+//
+DELIM	674 col 5
+;
+//
+DELIM	674 col 7
+}
+//
+WORD	674 col 28
+similarity_parameters
+//
+DELIM	676 col 5
+;
+//
+COMMENT	679 col 5
+Annotate based on similarity to annotation databases.
+//
+WORD	679 col 13
+funcdef
+//
+WORD	679 col 41
+annotate_proteins_similarity
+//
+DELIM	679 col 42
+(
+//
+WORD	679 col 50
+genomeTO
+//
+DELIM	679 col 52
+,
+//
+WORD	679 col 74
+similarity_parameters
+//
+WORD	679 col 80
+params
+//
+DELIM	679 col 82
+)
+//
+WORD	679 col 90
+returns
+//
+DELIM	679 col 91
+(
+//
+WORD	679 col 99
+genomeTO
+//
+DELIM	679 col 100
+)
+//
+DELIM	681 col 5
+;
+//
+WORD	681 col 13
+typedef
+//
+WORD	682 col 5
+structure
+//
+DELIM	683 col 9
+{
+//
+WORD	683 col 13
+int
+//
+WORD	683 col 39
+annotate_hypothetical_only
+//
+DELIM	684 col 9
+;
+//
+WORD	684 col 13
+int
+//
+WORD	684 col 31
+annotate_null_only
+//
+DELIM	685 col 5
+;
+//
+DELIM	685 col 7
+}
+//
+WORD	685 col 23
+phage_parameters
+//
+DELIM	686 col 5
+;
+//
+COMMENT	689 col 5
+Annotate based on similarity to the phage annotation daatabase.
+//
+WORD	689 col 13
+funcdef
+//
+WORD	689 col 36
+annotate_proteins_phage
+//
+DELIM	689 col 37
+(
+//
+WORD	689 col 45
+genomeTO
+//
+DELIM	689 col 47
+,
+//
+WORD	689 col 64
+phage_parameters
+//
+WORD	689 col 70
+params
+//
+DELIM	689 col 72
+)
+//
+WORD	689 col 80
+returns
+//
+DELIM	689 col 81
+(
+//
+WORD	689 col 89
+genomeTO
+//
+DELIM	689 col 90
+)
+//
+DELIM	691 col 5
+;
+//
+WORD	691 col 13
+typedef
+//
+WORD	692 col 5
+structure
+//
+DELIM	693 col 9
+{
+//
+WORD	693 col 13
+int
+//
+WORD	693 col 22
+kmer_size
+//
+DELIM	694 col 9
+;
+//
+WORD	694 col 16
+string
+//
+WORD	694 col 28
+dataset_name
+//
+DELIM	695 col 9
+;
+//
+WORD	695 col 13
+int
+//
+WORD	695 col 43
+return_scores_for_all_proteins
+//
+DELIM	696 col 9
+;
+//
+WORD	696 col 13
+int
+//
+WORD	696 col 28
+score_threshold
+//
+DELIM	697 col 9
+;
+//
+WORD	697 col 13
+int
+//
+WORD	697 col 26
+hit_threshold
+//
+DELIM	698 col 9
+;
+//
+WORD	698 col 13
+int
+//
+WORD	698 col 37
+sequential_hit_threshold
+//
+DELIM	699 col 9
+;
+//
+WORD	699 col 13
+int
+//
+WORD	699 col 21
+detailed
+//
+DELIM	700 col 9
+;
+//
+WORD	700 col 13
+int
+//
+WORD	700 col 21
+min_hits
+//
+DELIM	701 col 9
+;
+//
+WORD	701 col 13
+int
+//
+WORD	701 col 21
+min_size
+//
+DELIM	702 col 9
+;
+//
+WORD	702 col 13
+int
+//
+WORD	702 col 20
+max_gap
+//
+DELIM	703 col 9
+;
+//
+WORD	703 col 13
+int
+//
+WORD	703 col 39
+annotate_hypothetical_only
+//
+DELIM	704 col 9
+;
+//
+WORD	704 col 13
+int
+//
+WORD	704 col 31
+annotate_null_only
+//
+DELIM	705 col 5
+;
+//
+DELIM	705 col 7
+}
+//
+WORD	705 col 25
+kmer_v1_parameters
+//
+DELIM	707 col 5
+;
+//
+WORD	707 col 13
+funcdef
+//
+WORD	707 col 38
+annotate_proteins_kmer_v1
+//
+DELIM	707 col 39
+(
+//
+WORD	707 col 47
+genomeTO
+//
+DELIM	707 col 49
+,
+//
+WORD	707 col 68
+kmer_v1_parameters
+//
+WORD	707 col 74
+params
+//
+DELIM	707 col 76
+)
+//
+WORD	707 col 84
+returns
+//
+DELIM	707 col 85
+(
+//
+WORD	707 col 93
+genomeTO
+//
+DELIM	707 col 94
+)
+//
+DELIM	709 col 5
+;
+//
+WORD	709 col 13
+typedef
+//
+WORD	709 col 23
+structure
+//
+DELIM	710 col 9
+{
+//
+WORD	710 col 13
+int
+//
+WORD	710 col 21
+min_hits
+//
+DELIM	711 col 9
+;
+//
+WORD	711 col 13
+int
+//
+WORD	711 col 20
+max_gap
+//
+DELIM	712 col 9
+;
+//
+WORD	712 col 13
+int
+//
+WORD	712 col 39
+annotate_hypothetical_only
+//
+DELIM	713 col 9
+;
+//
+WORD	713 col 13
+int
+//
+WORD	713 col 31
+annotate_null_only
+//
+DELIM	714 col 9
+;
+//
+WORD	714 col 16
+string
+//
+WORD	714 col 35
+kmer_data_directory
+//
+DELIM	715 col 9
+;
+//
+WORD	715 col 16
+string
+//
+WORD	715 col 32
+kmer_service_url
+//
+DELIM	716 col 5
+;
+//
+DELIM	716 col 7
+}
+//
+WORD	716 col 25
+kmer_v2_parameters
+//
+DELIM	718 col 5
+;
+//
+WORD	718 col 13
+funcdef
+//
+WORD	718 col 38
+annotate_proteins_kmer_v2
+//
+DELIM	718 col 39
+(
+//
+WORD	718 col 48
+genomeTO
+//
+WORD	718 col 57
+genome_in
+//
+DELIM	718 col 59
+,
+//
+WORD	718 col 78
+kmer_v2_parameters
+//
+WORD	718 col 84
+params
+//
+DELIM	718 col 86
+)
+//
+WORD	718 col 94
+returns
+//
+DELIM	718 col 95
+(
+//
+WORD	718 col 104
+genomeTO
+//
+WORD	718 col 114
+genome_out
+//
+DELIM	718 col 115
+)
+//
+DELIM	720 col 5
+;
+//
+WORD	720 col 13
+typedef
+//
+WORD	720 col 23
+structure
+//
+DELIM	721 col 9
+{
+//
+WORD	721 col 13
+int
+//
+WORD	721 col 24
+placeholder
+//
+DELIM	722 col 5
+;
+//
+DELIM	722 col 7
+}
+//
+WORD	722 col 46
+resolve_overlapping_features_parameters
+//
+DELIM	724 col 5
+;
+//
+WORD	724 col 13
+funcdef
+//
+WORD	724 col 41
+resolve_overlapping_features
+//
+DELIM	724 col 42
+(
+//
+WORD	724 col 51
+genomeTO
+//
+WORD	724 col 60
+genome_in
+//
+DELIM	724 col 62
+,
+//
+WORD	724 col 102
+resolve_overlapping_features_parameters
+//
+WORD	724 col 108
+params
+//
+DELIM	724 col 110
+)
+//
+WORD	724 col 118
+returns
+//
+DELIM	724 col 119
+(
+//
+WORD	724 col 128
+genomeTO
+//
+WORD	724 col 138
+genome_out
+//
+DELIM	724 col 139
+)
+//
+DELIM	726 col 5
+;
+//
+WORD	726 col 13
+typedef
+//
+WORD	726 col 23
+structure
+//
+DELIM	727 col 9
+{
+//
+WORD	727 col 15
+float
+//
+WORD	727 col 35
+min_rna_pct_coverage
+//
+DELIM	728 col 5
+;
+//
+DELIM	728 col 7
+}
+//
+WORD	728 col 52
+propagate_genbank_feature_metadata_parameters
+//
+DELIM	730 col 5
+;
+//
+WORD	730 col 13
+funcdef
+//
+WORD	730 col 47
+propagate_genbank_feature_metadata
+//
+DELIM	730 col 48
+(
+//
+WORD	730 col 57
+genomeTO
+//
+WORD	730 col 66
+genome_in
+//
+DELIM	730 col 68
+,
+//
+WORD	730 col 114
+propagate_genbank_feature_metadata_parameters
+//
+WORD	730 col 120
+params
+//
+DELIM	730 col 122
+)
+//
+WORD	730 col 130
+returns
+//
+DELIM	730 col 131
+(
+//
+WORD	730 col 140
+genomeTO
+//
+WORD	730 col 150
+genome_out
+//
+DELIM	730 col 151
+)
+//
+DELIM	732 col 5
+;
+//
+WORD	732 col 13
+funcdef
+//
+WORD	732 col 43
+call_features_ProtoCDS_kmer_v1
+//
+DELIM	732 col 44
+(
+//
+WORD	732 col 52
+genomeTO
+//
+DELIM	732 col 54
+,
+//
+WORD	732 col 73
+kmer_v1_parameters
+//
+WORD	732 col 79
+params
+//
+DELIM	732 col 81
+)
+//
+WORD	732 col 89
+returns
+//
+DELIM	732 col 90
+(
+//
+WORD	732 col 98
+genomeTO
+//
+DELIM	732 col 99
+)
+//
+DELIM	733 col 5
+;
+//
+WORD	733 col 13
+funcdef
+//
+WORD	733 col 43
+call_features_ProtoCDS_kmer_v2
+//
+DELIM	733 col 44
+(
+//
+WORD	733 col 53
+genomeTO
+//
+WORD	733 col 62
+genome_in
+//
+DELIM	733 col 64
+,
+//
+WORD	733 col 83
+kmer_v2_parameters
+//
+WORD	733 col 89
+params
+//
+DELIM	733 col 91
+)
+//
+WORD	733 col 99
+returns
+//
+DELIM	733 col 100
+(
+//
+WORD	733 col 109
+genomeTO
+//
+WORD	733 col 119
+genome_out
+//
+DELIM	733 col 120
+)
+//
+DELIM	735 col 5
+;
+//
+WORD	735 col 13
+funcdef
+//
+WORD	735 col 48
+enumerate_special_protein_databases
+//
+DELIM	735 col 49
+(
+//
+DELIM	735 col 51
+)
+//
+WORD	735 col 59
+returns
+//
+DELIM	735 col 60
+(
+//
+WORD	735 col 64
+list
+//
+DELIM	735 col 65
+<
+//
+WORD	735 col 71
+string
+//
+DELIM	735 col 73
+>
+//
+WORD	735 col 87
+database_names
+//
+DELIM	735 col 88
+)
+//
+DELIM	737 col 5
+;
+//
+WORD	737 col 13
+typedef
+//
+WORD	737 col 19
+tuple
+//
+DELIM	738 col 9
+<
+//
+WORD	738 col 16
+string
+//
+WORD	738 col 26
+protein_id
+//
+DELIM	739 col 9
+,
+//
+WORD	739 col 16
+string
+//
+WORD	739 col 29
+database_name
+//
+DELIM	740 col 9
+,
+//
+WORD	740 col 16
+string
+//
+WORD	740 col 27
+database_id
+//
+DELIM	741 col 9
+,
+//
+WORD	741 col 16
+string
+//
+WORD	741 col 32
+protein_coverage
+//
+DELIM	742 col 9
+,
+//
+WORD	742 col 16
+string
+//
+WORD	742 col 33
+database_coverage
+//
+DELIM	743 col 9
+,
+//
+WORD	743 col 15
+float
+//
+WORD	743 col 23
+identity
+//
+DELIM	744 col 9
+,
+//
+WORD	744 col 15
+float
+//
+WORD	744 col 23
+p_value
+//
+DELIM	744 col 25
+>
+//
+WORD	744 col 44
+special_protein_hit
+//
+DELIM	745 col 5
+;
+//
+WORD	745 col 13
+funcdef
+//
+WORD	745 col 37
+compute_special_proteins
+//
+DELIM	745 col 38
+(
+//
+WORD	745 col 47
+genomeTO
+//
+WORD	745 col 56
+genome_in
+//
+DELIM	745 col 58
+,
+//
+WORD	745 col 62
+list
+//
+DELIM	745 col 63
+<
+//
+WORD	745 col 69
+string
+//
+DELIM	745 col 71
+>
+//
+WORD	745 col 85
+database_names
+//
+DELIM	745 col 87
+)
+//
+WORD	745 col 95
+returns
+//
+DELIM	745 col 96
+(
+//
+WORD	745 col 100
+list
+//
+DELIM	745 col 101
+<
+//
+WORD	745 col 120
+special_protein_hit
+//
+DELIM	745 col 122
+>
+//
+WORD	745 col 129
+results
+//
+DELIM	745 col 130
+)
+//
+DELIM	747 col 5
+;
+//
+WORD	747 col 13
+funcdef
+//
+WORD	747 col 38
+annotate_special_proteins
+//
+DELIM	747 col 39
+(
+//
+WORD	747 col 48
+genomeTO
+//
+WORD	747 col 57
+genome_in
+//
+DELIM	747 col 59
+)
+//
+WORD	747 col 67
+returns
+//
+DELIM	747 col 68
+(
+//
+WORD	747 col 77
+genomeTO
+//
+WORD	747 col 87
+genome_out
+//
+DELIM	747 col 88
+)
+//
+DELIM	748 col 5
+;
+//
+WORD	748 col 13
+funcdef
+//
+WORD	748 col 40
+annotate_families_figfam_v1
+//
+DELIM	748 col 41
+(
+//
+WORD	748 col 50
+genomeTO
+//
+WORD	748 col 59
+genome_in
+//
+DELIM	748 col 61
+)
+//
+WORD	748 col 69
+returns
+//
+DELIM	748 col 70
+(
+//
+WORD	748 col 79
+genomeTO
+//
+WORD	748 col 89
+genome_out
+//
+DELIM	748 col 90
+)
+//
+DELIM	749 col 5
+;
+//
+WORD	749 col 13
+funcdef
+//
+WORD	749 col 37
+annotate_families_patric
+//
+DELIM	749 col 38
+(
+//
+WORD	749 col 47
+genomeTO
+//
+WORD	749 col 56
+genome_in
+//
+DELIM	749 col 58
+)
+//
+WORD	749 col 66
+returns
+//
+DELIM	749 col 67
+(
+//
+WORD	749 col 76
+genomeTO
+//
+WORD	749 col 86
+genome_out
+//
+DELIM	749 col 87
+)
+//
+DELIM	750 col 5
+;
+//
+WORD	750 col 13
+funcdef
+//
+WORD	750 col 43
+annotate_families_patric_viral
+//
+DELIM	750 col 44
+(
+//
+WORD	750 col 53
+genomeTO
+//
+WORD	750 col 62
+genome_in
+//
+DELIM	750 col 64
+)
+//
+WORD	750 col 72
+returns
+//
+DELIM	750 col 73
+(
+//
+WORD	750 col 82
+genomeTO
+//
+WORD	750 col 92
+genome_out
+//
+DELIM	750 col 93
+)
+//
+DELIM	751 col 5
+;
+//
+WORD	751 col 13
+funcdef
+//
+WORD	751 col 42
+annotate_null_to_hypothetical
+//
+DELIM	751 col 43
+(
+//
+WORD	751 col 52
+genomeTO
+//
+WORD	751 col 61
+genome_in
+//
+DELIM	751 col 63
+)
+//
+WORD	751 col 71
+returns
+//
+DELIM	751 col 72
+(
+//
+WORD	751 col 81
+genomeTO
+//
+WORD	751 col 91
+genome_out
+//
+DELIM	751 col 92
+)
+//
+DELIM	753 col 5
+;
+//
+WORD	753 col 13
+funcdef
+//
+WORD	753 col 36
+remove_genbank_features
+//
+DELIM	753 col 37
+(
+//
+WORD	753 col 46
+genomeTO
+//
+WORD	753 col 55
+genome_in
+//
+DELIM	753 col 57
+)
+//
+WORD	753 col 65
+returns
+//
+DELIM	753 col 66
+(
+//
+WORD	753 col 75
+genomeTO
+//
+WORD	753 col 85
+genome_out
+//
+DELIM	753 col 86
+)
+//
+DELIM	755 col 5
+;
+//
+WORD	755 col 13
+funcdef
+//
+WORD	755 col 38
+annotate_strain_type_MLST
+//
+DELIM	755 col 39
+(
+//
+WORD	755 col 48
+genomeTO
+//
+WORD	755 col 57
+genome_in
+//
+DELIM	755 col 59
+)
+//
+WORD	755 col 67
+returns
+//
+DELIM	755 col 68
+(
+//
+WORD	755 col 77
+genomeTO
+//
+WORD	755 col 87
+genome_out
+//
+DELIM	755 col 88
+)
+//
+DELIM	757 col 5
+;
+//
+WORD	757 col 13
+typedef
+//
+WORD	757 col 19
+tuple
+//
+DELIM	758 col 9
+<
+//
+WORD	758 col 16
+string
+//
+WORD	758 col 26
+protein_id
+//
+DELIM	759 col 9
+,
+//
+WORD	759 col 16
+string
+//
+WORD	759 col 25
+domain_id
+//
+DELIM	760 col 9
+,
+//
+WORD	760 col 15
+float
+//
+WORD	760 col 23
+identity
+//
+DELIM	761 col 9
+,
+//
+WORD	761 col 13
+int
+//
+WORD	761 col 26
+alignment_len
+//
+DELIM	762 col 9
+,
+//
+WORD	762 col 13
+int
+//
+WORD	762 col 23
+mismatches
+//
+DELIM	763 col 9
+,
+//
+WORD	763 col 13
+int
+//
+WORD	763 col 25
+gap_openings
+//
+DELIM	764 col 9
+,
+//
+WORD	764 col 13
+int
+//
+WORD	764 col 26
+protein_start
+//
+DELIM	765 col 9
+,
+//
+WORD	765 col 13
+int
+//
+WORD	765 col 24
+protein_end
+//
+DELIM	766 col 9
+,
+//
+WORD	766 col 13
+int
+//
+WORD	766 col 25
+domain_start
+//
+DELIM	767 col 9
+,
+//
+WORD	767 col 13
+int
+//
+WORD	767 col 23
+domain_end
+//
+DELIM	768 col 9
+,
+//
+WORD	768 col 15
+float
+//
+WORD	768 col 22
+e_value
+//
+DELIM	769 col 9
+,
+//
+WORD	769 col 15
+float
+//
+WORD	769 col 24
+bit_score
+//
+DELIM	770 col 9
+,
+//
+WORD	770 col 16
+string
+//
+WORD	770 col 25
+accession
+//
+DELIM	771 col 9
+,
+//
+WORD	771 col 16
+string
+//
+WORD	771 col 26
+short_name
+//
+DELIM	772 col 9
+,
+//
+WORD	772 col 16
+string
+//
+WORD	772 col 27
+description
+//
+DELIM	773 col 9
+,
+//
+WORD	773 col 13
+int
+//
+WORD	773 col 25
+pssm_length
+//
+DELIM	773 col 27
+>
+//
+WORD	773 col 34
+cdd_hit
+//
+DELIM	774 col 5
+;
+//
+WORD	774 col 13
+funcdef
+//
+WORD	774 col 24
+compute_cdd
+//
+DELIM	774 col 25
+(
+//
+WORD	774 col 34
+genomeTO
+//
+WORD	774 col 43
+genome_in
+//
+DELIM	774 col 45
+)
+//
+WORD	774 col 53
+returns
+//
+DELIM	774 col 54
+(
+//
+WORD	774 col 58
+list
+//
+DELIM	774 col 59
+<
+//
+WORD	774 col 66
+cdd_hit
+//
+DELIM	774 col 67
+>
+//
+DELIM	774 col 68
+)
+//
+DELIM	776 col 5
+;
+//
+WORD	776 col 13
+funcdef
+//
+WORD	776 col 30
+annotate_proteins
+//
+DELIM	776 col 31
+(
+//
+WORD	776 col 39
+genomeTO
+//
+DELIM	776 col 41
+)
+//
+WORD	776 col 49
+returns
+//
+DELIM	776 col 50
+(
+//
+WORD	776 col 58
+genomeTO
+//
+DELIM	776 col 59
+)
+//
+DELIM	778 col 5
+;
+//
+COMMENT	779 col 5
+Determine close genomes.
+//
+WORD	779 col 13
+funcdef
+//
+WORD	779 col 54
+estimate_crude_phylogenetic_position_kmer
+//
+DELIM	779 col 55
+(
+//
+WORD	779 col 63
+genomeTO
+//
+DELIM	779 col 65
+)
+//
+WORD	779 col 73
+returns
+//
+DELIM	779 col 74
+(
+//
+WORD	779 col 81
+string
+//
+WORD	779 col 98
+position_estimate
+//
+DELIM	779 col 99
+)
+//
+DELIM	781 col 5
+;
+//
+WORD	781 col 13
+funcdef
+//
+WORD	781 col 33
+find_close_neighbors
+//
+DELIM	781 col 34
+(
+//
+WORD	781 col 42
+genomeTO
+//
+DELIM	781 col 44
+)
+//
+WORD	781 col 52
+returns
+//
+DELIM	781 col 53
+(
+//
+WORD	781 col 61
+genomeTO
+//
+DELIM	781 col 62
+)
+//
+DELIM	783 col 5
+;
+//
+COMMENT	786 col 5
+Interface to Strep repeats and "boxes" tools
+//
+WORD	786 col 13
+funcdef
+//
+WORD	786 col 44
+call_features_strep_suis_repeat
+//
+DELIM	786 col 45
+(
+//
+WORD	786 col 53
+genomeTO
+//
+DELIM	786 col 55
+)
+//
+WORD	786 col 63
+returns
+//
+DELIM	786 col 64
+(
+//
+WORD	786 col 72
+genomeTO
+//
+DELIM	786 col 73
+)
+//
+DELIM	787 col 5
+;
+//
+WORD	787 col 13
+funcdef
+//
+WORD	787 col 46
+call_features_strep_pneumo_repeat
+//
+DELIM	787 col 47
+(
+//
+WORD	787 col 55
+genomeTO
+//
+DELIM	787 col 57
+)
+//
+WORD	787 col 65
+returns
+//
+DELIM	787 col 66
+(
+//
+WORD	787 col 74
+genomeTO
+//
+DELIM	787 col 75
+)
+//
+DELIM	788 col 5
+;
+//
+WORD	788 col 13
+funcdef
+//
+WORD	788 col 33
+call_features_crispr
+//
+DELIM	788 col 34
+(
+//
+WORD	788 col 43
+genomeTO
+//
+WORD	788 col 52
+genome_in
+//
+DELIM	788 col 54
+)
+//
+WORD	788 col 62
+returns
+//
+DELIM	788 col 63
+(
+//
+WORD	788 col 72
+genomeTO
+//
+WORD	788 col 82
+genome_out
+//
+DELIM	788 col 83
+)
+//
+DELIM	790 col 5
+;
+//
+WORD	790 col 13
+funcdef
+//
+WORD	790 col 29
+update_functions
+//
+DELIM	790 col 30
+(
+//
+WORD	790 col 39
+genomeTO
+//
+WORD	790 col 48
+genome_in
+//
+DELIM	790 col 50
+,
+//
+WORD	790 col 54
+list
+//
+DELIM	790 col 55
+<
+//
+WORD	790 col 60
+tuple
+//
+DELIM	790 col 61
+<
+//
+WORD	790 col 71
+feature_id
+//
+DELIM	790 col 73
+,
+//
+WORD	790 col 80
+string
+//
+WORD	790 col 88
+function
+//
+DELIM	790 col 89
+>
+//
+DELIM	790 col 91
+>
+//
+WORD	790 col 100
+functions
+//
+DELIM	790 col 102
+,
+//
+WORD	790 col 117
+analysis_event
+//
+WORD	790 col 122
+event
+//
+DELIM	791 col 9
+)
+//
+WORD	791 col 17
+returns
+//
+DELIM	791 col 18
+(
+//
+WORD	791 col 27
+genomeTO
+//
+WORD	791 col 37
+genome_out
+//
+DELIM	791 col 38
+)
+//
+DELIM	793 col 5
+;
+//
+COMMENT	797 col 5
+Renumber features such that their identifiers are contiguous along contigs.
+//
+WORD	797 col 13
+funcdef
+//
+WORD	797 col 30
+renumber_features
+//
+DELIM	797 col 31
+(
+//
+WORD	797 col 40
+genomeTO
+//
+WORD	797 col 49
+genome_in
+//
+DELIM	797 col 51
+)
+//
+WORD	797 col 59
+returns
+//
+DELIM	797 col 60
+(
+//
+WORD	797 col 69
+genomeTO
+//
+WORD	797 col 79
+genome_out
+//
+DELIM	797 col 80
+)
+//
+DELIM	799 col 5
+;
+//
+COMMENT	802 col 5
+Perform AMR classification.
+//
+WORD	802 col 13
+funcdef
+//
+WORD	802 col 25
+classify_amr
+//
+DELIM	802 col 26
+(
+//
+WORD	802 col 34
+genomeTO
+//
+DELIM	802 col 36
+)
+//
+WORD	802 col 44
+returns
+//
+DELIM	802 col 45
+(
+//
+WORD	802 col 53
+genomeTO
+//
+DELIM	802 col 54
+)
+//
+DELIM	804 col 5
+;
+//
+WORD	804 col 13
+typedef
+//
+WORD	804 col 23
+structure
+//
+DELIM	805 col 9
+{
+//
+WORD	805 col 16
+string
+//
+WORD	805 col 35
+reference_genome_id
+//
+DELIM	806 col 5
+;
+//
+DELIM	806 col 7
+}
+//
+WORD	806 col 33
+evaluate_genome_parameters
+//
+DELIM	807 col 5
+;
+//
+COMMENT	810 col 5
+Perform genome evaluation.
+//
+WORD	810 col 13
+funcdef
+//
+WORD	810 col 28
+evaluate_genome
+//
+DELIM	810 col 29
+(
+//
+WORD	810 col 38
+genomeTO
+//
+WORD	810 col 47
+genome_in
+//
+DELIM	810 col 49
+,
+//
+WORD	810 col 76
+evaluate_genome_parameters
+//
+WORD	810 col 82
+params
+//
+DELIM	810 col 84
+)
+//
+WORD	810 col 92
+returns
+//
+DELIM	810 col 93
+(
+//
+WORD	810 col 102
+genomeTO
+//
+WORD	810 col 112
+genome_out
+//
+DELIM	810 col 113
+)
+//
+DELIM	812 col 5
+;
+//
+COMMENT	818 col 5
+Export genome typed object to one of the supported output formats: genbank, embl, or gff. If feature_types is a non-empty list, limit the output to the given feature types.
+//
+WORD	818 col 13
+funcdef
+//
+WORD	818 col 26
+export_genome
+//
+DELIM	818 col 27
+(
+//
+WORD	818 col 36
+genomeTO
+//
+WORD	818 col 45
+genome_in
+//
+DELIM	818 col 47
+,
+//
+WORD	818 col 54
+string
+//
+WORD	818 col 60
+format
+//
+DELIM	818 col 62
+,
+//
+WORD	818 col 66
+list
+//
+DELIM	818 col 67
+<
+//
+WORD	818 col 73
+string
+//
+DELIM	818 col 75
+>
+//
+WORD	818 col 88
+feature_types
+//
+DELIM	818 col 90
+)
+//
+WORD	818 col 98
+returns
+//
+DELIM	818 col 99
+(
+//
+WORD	818 col 106
+string
+//
+WORD	818 col 119
+exported_data
+//
+DELIM	818 col 120
+)
+//
+DELIM	820 col 5
+;
+//
+COMMENT	824 col 5
+Enumerate the available classifiers. Returns the list of identifiers for the classifiers.
+//
+WORD	824 col 13
+funcdef
+//
+WORD	824 col 34
+enumerate_classifiers
+//
+DELIM	824 col 35
+(
+//
+DELIM	824 col 37
+)
+//
+WORD	824 col 45
+returns
+//
+DELIM	824 col 46
+(
+//
+WORD	824 col 50
+list
+//
+DELIM	824 col 51
+<
+//
+WORD	824 col 57
+string
+//
+DELIM	824 col 58
+>
+//
+DELIM	824 col 59
+)
+//
+DELIM	826 col 5
+;
+//
+COMMENT	834 col 5
+Query the groups included in the given classifier. This is a mapping from the group name to the list of genome IDs included in the group. Note that these are genome IDs native to the system that created the classifier; currently these are SEED genome IDs that may be translated using the source IDs on the Genome entity.
+//
+WORD	834 col 13
+funcdef
+//
+WORD	834 col 36
+query_classifier_groups
+//
+DELIM	834 col 37
+(
+//
+WORD	834 col 44
+string
+//
+WORD	834 col 54
+classifier
+//
+DELIM	834 col 56
+)
+//
+WORD	834 col 63
+returns
+//
+DELIM	834 col 64
+(
+//
+WORD	834 col 71
+mapping
+//
+DELIM	834 col 72
+<
+//
+WORD	834 col 79
+string
+//
+WORD	834 col 87
+group_id
+//
+DELIM	834 col 89
+,
+//
+WORD	834 col 93
+list
+//
+DELIM	834 col 94
+<
+//
+WORD	834 col 103
+genome_id
+//
+DELIM	834 col 104
+>
+//
+DELIM	834 col 105
+>
+//
+DELIM	834 col 106
+)
+//
+DELIM	836 col 5
+;
+//
+COMMENT	840 col 5
+Query the taxonomy strings that this classifier maps.
+//
+WORD	840 col 13
+funcdef
+//
+WORD	840 col 40
+query_classifier_taxonomies
+//
+DELIM	840 col 41
+(
+//
+WORD	840 col 48
+string
+//
+WORD	840 col 58
+classifier
+//
+DELIM	840 col 60
+)
+//
+WORD	840 col 67
+returns
+//
+DELIM	840 col 68
+(
+//
+WORD	840 col 75
+mapping
+//
+DELIM	840 col 76
+<
+//
+WORD	840 col 83
+string
+//
+WORD	840 col 91
+group_id
+//
+DELIM	840 col 93
+,
+//
+WORD	840 col 100
+string
+//
+WORD	840 col 108
+taxonomy
+//
+DELIM	840 col 109
+>
+//
+DELIM	840 col 110
+)
+//
+DELIM	842 col 5
+;
+//
+COMMENT	845 col 5
+Classify a dataset, returning only the binned output.
+//
+WORD	845 col 13
+funcdef
+//
+WORD	845 col 31
+classify_into_bins
+//
+DELIM	845 col 32
+(
+//
+WORD	845 col 39
+string
+//
+WORD	845 col 49
+classifier
+//
+DELIM	845 col 51
+,
+//
+WORD	845 col 55
+list
+//
+DELIM	845 col 56
+<
+//
+WORD	845 col 61
+tuple
+//
+DELIM	845 col 62
+<
+//
+WORD	845 col 69
+string
+//
+WORD	845 col 71
+id
+//
+DELIM	845 col 73
+,
+//
+WORD	845 col 80
+string
+//
+WORD	845 col 88
+dna_data
+//
+DELIM	845 col 89
+>
+//
+DELIM	845 col 91
+>
+//
+WORD	845 col 100
+dna_input
+//
+DELIM	846 col 9
+)
+//
+WORD	846 col 16
+returns
+//
+DELIM	846 col 17
+(
+//
+WORD	846 col 24
+mapping
+//
+DELIM	846 col 25
+<
+//
+WORD	846 col 32
+string
+//
+WORD	846 col 40
+group_id
+//
+DELIM	846 col 42
+,
+//
+WORD	846 col 46
+int
+//
+WORD	846 col 51
+count
+//
+DELIM	846 col 52
+>
+//
+DELIM	846 col 53
+)
+//
+DELIM	848 col 5
+;
+//
+COMMENT	852 col 5
+Classify a dataset, returning the binned output along with the raw assignments and the list of sequences that were not assigned.
+//
+WORD	852 col 13
+funcdef
+//
+WORD	852 col 26
+classify_full
+//
+DELIM	852 col 27
+(
+//
+WORD	852 col 34
+string
+//
+WORD	852 col 44
+classifier
+//
+DELIM	852 col 46
+,
+//
+WORD	852 col 50
+list
+//
+DELIM	852 col 51
+<
+//
+WORD	852 col 56
+tuple
+//
+DELIM	852 col 57
+<
+//
+WORD	852 col 64
+string
+//
+WORD	852 col 66
+id
+//
+DELIM	852 col 68
+,
+//
+WORD	852 col 75
+string
+//
+WORD	852 col 83
+dna_data
+//
+DELIM	852 col 84
+>
+//
+DELIM	852 col 86
+>
+//
+WORD	852 col 95
+dna_input
+//
+DELIM	853 col 9
+)
+//
+WORD	853 col 16
+returns
+//
+DELIM	853 col 17
+(
+//
+WORD	853 col 24
+mapping
+//
+DELIM	853 col 25
+<
+//
+WORD	853 col 32
+string
+//
+WORD	853 col 40
+group_id
+//
+DELIM	853 col 42
+,
+//
+WORD	853 col 46
+int
+//
+WORD	853 col 51
+count
+//
+DELIM	853 col 52
+>
+//
+DELIM	853 col 54
+,
+//
+WORD	853 col 61
+string
+//
+WORD	853 col 71
+raw_output
+//
+DELIM	853 col 73
+,
+//
+WORD	853 col 77
+list
+//
+DELIM	853 col 78
+<
+//
+WORD	853 col 84
+string
+//
+DELIM	853 col 86
+>
+//
+WORD	853 col 96
+unassigned
+//
+DELIM	853 col 97
+)
+//
+DELIM	856 col 5
+;
+//
+COMMENT	859 col 5
+Project subsystems.
+//
+WORD	859 col 13
+funcdef
+//
+WORD	859 col 31
+project_subsystems
+//
+DELIM	859 col 32
+(
+//
+WORD	859 col 41
+genomeTO
+//
+WORD	859 col 50
+genome_in
+//
+DELIM	859 col 52
+)
+//
+WORD	859 col 60
+returns
+//
+DELIM	859 col 61
+(
+//
+WORD	859 col 70
+genomeTO
+//
+WORD	859 col 80
+genome_out
+//
+DELIM	859 col 81
+)
+//
+DELIM	861 col 5
+;
+//
+WORD	861 col 13
+typedef
+//
+WORD	861 col 23
+structure
+//
+DELIM	862 col 9
+{
+//
+WORD	862 col 16
+string
+//
+WORD	862 col 20
+name
+//
+DELIM	863 col 9
+;
+//
+WORD	863 col 16
+string
+//
+WORD	863 col 25
+condition
+//
+DELIM	864 col 9
+;
+//
+WORD	864 col 13
+int
+//
+WORD	864 col 33
+failure_is_not_fatal
+//
+DELIM	865 col 9
+;
+//
+WORD	865 col 39
+repeat_region_SEED_parameters
+//
+WORD	865 col 68
+repeat_region_SEED_parameters
+//
+DELIM	866 col 9
+;
+//
+WORD	866 col 29
+glimmer3_parameters
+//
+WORD	866 col 48
+glimmer3_parameters
+//
+DELIM	867 col 9
+;
+//
+WORD	867 col 28
+kmer_v1_parameters
+//
+WORD	867 col 46
+kmer_v1_parameters
+//
+DELIM	868 col 9
+;
+//
+WORD	868 col 28
+kmer_v2_parameters
+//
+WORD	868 col 46
+kmer_v2_parameters
+//
+DELIM	869 col 9
+;
+//
+WORD	869 col 31
+similarity_parameters
+//
+WORD	869 col 52
+similarity_parameters
+//
+DELIM	870 col 5
+;
+//
+DELIM	870 col 7
+}
+//
+WORD	870 col 21
+pipeline_stage
+//
+DELIM	872 col 5
+;
+//
+COMMENT	875 col 5
+Compute genome Quality Control scoring.
+//
+WORD	875 col 13
+funcdef
+//
+WORD	875 col 43
+compute_genome_quality_control
+//
+DELIM	875 col 44
+(
+//
+WORD	875 col 53
+genomeTO
+//
+WORD	875 col 62
+genome_in
+//
+DELIM	875 col 64
+)
+//
+WORD	875 col 72
+returns
+//
+DELIM	875 col 73
+(
+//
+WORD	875 col 82
+genomeTO
+//
+WORD	875 col 92
+genome_out
+//
+DELIM	875 col 93
+)
+//
+DELIM	877 col 5
+;
+//
+WORD	877 col 13
+typedef
+//
+WORD	878 col 5
+structure
+//
+DELIM	879 col 9
+{
+//
+WORD	879 col 13
+list
+//
+DELIM	879 col 14
+<
+//
+WORD	879 col 28
+pipeline_stage
+//
+DELIM	879 col 30
+>
+//
+WORD	879 col 36
+stages
+//
+DELIM	880 col 5
+;
+//
+DELIM	880 col 7
+}
+//
+WORD	880 col 15
+workflow
+//
+DELIM	882 col 5
+;
+//
+WORD	882 col 13
+typedef
+//
+WORD	883 col 5
+structure
+//
+DELIM	884 col 9
+{
+//
+WORD	884 col 16
+string
+//
+WORD	884 col 18
+id
+//
+DELIM	885 col 9
+;
+//
+WORD	885 col 16
+string
+//
+WORD	885 col 20
+name
+//
+DELIM	886 col 9
+;
+//
+WORD	886 col 16
+string
+//
+WORD	886 col 27
+description
+//
+DELIM	887 col 9
+;
+//
+WORD	887 col 18
+workflow
+//
+WORD	887 col 26
+workflow
+//
+DELIM	888 col 5
+;
+//
+DELIM	888 col 7
+}
+//
+WORD	888 col 13
+recipe
+//
+DELIM	890 col 5
+;
+//
+WORD	890 col 13
+funcdef
+//
+WORD	890 col 29
+default_workflow
+//
+DELIM	890 col 30
+(
+//
+DELIM	890 col 32
+)
+//
+WORD	890 col 40
+returns
+//
+DELIM	890 col 41
+(
+//
+WORD	890 col 49
+workflow
+//
+DELIM	890 col 50
+)
+//
+DELIM	892 col 5
+;
+//
+COMMENT	896 col 5
+Enumerate the loaded workflows. We always have a workflow named "default"; a particular deployment of the genome annotation service may include additional workflows.
+//
+WORD	896 col 13
+funcdef
+//
+WORD	896 col 30
+enumerate_recipes
+//
+DELIM	896 col 31
+(
+//
+DELIM	896 col 33
+)
+//
+WORD	896 col 41
+returns
+//
+DELIM	896 col 42
+(
+//
+WORD	896 col 46
+list
+//
+DELIM	896 col 47
+<
+//
+WORD	896 col 53
+recipe
+//
+DELIM	896 col 55
+>
+//
+WORD	896 col 62
+recipes
+//
+DELIM	896 col 63
+)
+//
+DELIM	898 col 5
+;
+//
+COMMENT	901 col 5
+Look up and return a particular named workflow.
+//
+WORD	901 col 13
+funcdef
+//
+WORD	901 col 24
+find_recipe
+//
+DELIM	901 col 25
+(
+//
+WORD	901 col 32
+string
+//
+WORD	901 col 34
+id
+//
+DELIM	901 col 36
+)
+//
+WORD	901 col 44
+returns
+//
+DELIM	901 col 45
+(
+//
+WORD	901 col 51
+recipe
+//
+DELIM	901 col 52
+)
+//
+DELIM	903 col 5
+;
+//
+COMMENT	908 col 5
+Return a workflow that includes all available stages. Not meant (necessarily) for actual execution, but as a comprehensive list of parts for users to use in assembling their own workflows.
+//
+WORD	908 col 13
+funcdef
+//
+WORD	908 col 39
+complete_workflow_template
+//
+DELIM	908 col 40
+(
+//
+DELIM	908 col 42
+)
+//
+WORD	908 col 50
+returns
+//
+DELIM	908 col 51
+(
+//
+WORD	908 col 59
+workflow
+//
+DELIM	908 col 60
+)
+//
+DELIM	909 col 5
+;
+//
+WORD	909 col 13
+funcdef
+//
+WORD	909 col 25
+run_pipeline
+//
+DELIM	909 col 26
+(
+//
+WORD	909 col 35
+genomeTO
+//
+WORD	909 col 44
+genome_in
+//
+DELIM	909 col 46
+,
+//
+WORD	909 col 55
+workflow
+//
+WORD	909 col 63
+workflow
+//
+DELIM	909 col 65
+)
+//
+WORD	909 col 73
+returns
+//
+DELIM	909 col 74
+(
+//
+WORD	909 col 83
+genomeTO
+//
+WORD	909 col 93
+genome_out
+//
+DELIM	909 col 94
+)
+//
+DELIM	911 col 5
+;
+//
+WORD	911 col 13
+typedef
+//
+WORD	912 col 5
+structure
+//
+DELIM	913 col 9
+{
+//
+WORD	913 col 16
+string
+//
+WORD	913 col 25
+genome_id
+//
+DELIM	914 col 9
+;
+//
+WORD	914 col 16
+Handle
+//
+WORD	914 col 20
+data
+//
+DELIM	915 col 9
+;
+//
+WORD	915 col 16
+string
+//
+WORD	915 col 24
+filename
+//
+DELIM	916 col 5
+;
+//
+DELIM	916 col 7
+}
+//
+WORD	916 col 27
+pipeline_batch_input
+//
+DELIM	918 col 5
+;
+//
+WORD	918 col 13
+typedef
+//
+WORD	919 col 5
+structure
+//
+DELIM	920 col 9
+{
+//
+WORD	920 col 16
+string
+//
+WORD	920 col 25
+genome_id
+//
+DELIM	921 col 9
+;
+//
+WORD	921 col 16
+string
+//
+WORD	921 col 22
+status
+//
+DELIM	922 col 9
+;
+//
+WORD	922 col 16
+string
+//
+WORD	922 col 29
+creation_date
+//
+DELIM	923 col 9
+;
+//
+WORD	923 col 16
+string
+//
+WORD	923 col 26
+start_date
+//
+DELIM	924 col 9
+;
+//
+WORD	924 col 16
+string
+//
+WORD	924 col 31
+completion_date
+//
+DELIM	926 col 9
+;
+//
+WORD	926 col 16
+Handle
+//
+WORD	926 col 22
+stdout
+//
+DELIM	927 col 9
+;
+//
+WORD	927 col 16
+Handle
+//
+WORD	927 col 22
+stderr
+//
+DELIM	928 col 9
+;
+//
+WORD	928 col 16
+Handle
+//
+WORD	928 col 22
+output
+//
+DELIM	930 col 9
+;
+//
+WORD	930 col 16
+string
+//
+WORD	930 col 24
+filename
+//
+DELIM	931 col 5
+;
+//
+DELIM	931 col 7
+}
+//
+WORD	931 col 34
+pipeline_batch_status_entry
+//
+DELIM	933 col 5
+;
+//
+WORD	933 col 13
+typedef
+//
+WORD	934 col 5
+structure
+//
+DELIM	935 col 9
+{
+//
+WORD	935 col 16
+string
+//
+WORD	935 col 22
+status
+//
+DELIM	936 col 9
+;
+//
+WORD	936 col 16
+string
+//
+WORD	936 col 27
+submit_date
+//
+DELIM	937 col 9
+;
+//
+WORD	937 col 16
+string
+//
+WORD	937 col 26
+start_date
+//
+DELIM	938 col 9
+;
+//
+WORD	938 col 16
+string
+//
+WORD	938 col 31
+completion_date
+//
+DELIM	940 col 9
+;
+//
+WORD	940 col 13
+list
+//
+DELIM	940 col 14
+<
+//
+WORD	940 col 41
+pipeline_batch_status_entry
+//
+DELIM	940 col 43
+>
+//
+WORD	940 col 50
+details
+//
+DELIM	941 col 5
+;
+//
+DELIM	941 col 7
+}
+//
+WORD	941 col 28
+pipeline_batch_status
+//
+DELIM	943 col 5
+;
+//
+WORD	943 col 13
+funcdef
+//
+WORD	943 col 33
+pipeline_batch_start
+//
+DELIM	943 col 34
+(
+//
+WORD	943 col 38
+list
+//
+DELIM	943 col 39
+<
+//
+WORD	943 col 59
+pipeline_batch_input
+//
+DELIM	943 col 61
+>
+//
+WORD	943 col 68
+genomes
+//
+DELIM	943 col 70
+,
+//
+WORD	943 col 79
+workflow
+//
+WORD	943 col 87
+workflow
+//
+DELIM	944 col 9
+)
+//
+WORD	944 col 17
+returns
+//
+DELIM	944 col 18
+(
+//
+WORD	944 col 25
+string
+//
+WORD	944 col 33
+batch_id
+//
+DELIM	944 col 35
+)
+//
+WORD	944 col 50
+authentication
+//
+WORD	944 col 58
+required
+//
+DELIM	945 col 5
+;
+//
+WORD	945 col 13
+funcdef
+//
+WORD	945 col 34
+pipeline_batch_status
+//
+DELIM	945 col 35
+(
+//
+WORD	945 col 42
+string
+//
+WORD	945 col 50
+batch_id
+//
+DELIM	946 col 9
+)
+//
+WORD	946 col 17
+returns
+//
+DELIM	946 col 18
+(
+//
+WORD	946 col 40
+pipeline_batch_status
+//
+WORD	946 col 46
+status
+//
+DELIM	946 col 48
+)
+//
+WORD	946 col 63
+authentication
+//
+WORD	946 col 71
+required
+//
+DELIM	947 col 5
+;
+//
+WORD	947 col 13
+funcdef
+//
+WORD	947 col 45
+pipeline_batch_enumerate_batches
+//
+DELIM	947 col 46
+(
+//
+DELIM	948 col 9
+)
+//
+WORD	948 col 17
+returns
+//
+DELIM	948 col 18
+(
+//
+WORD	948 col 22
+list
+//
+DELIM	948 col 23
+<
+//
+WORD	948 col 28
+tuple
+//
+DELIM	948 col 29
+<
+//
+WORD	948 col 36
+string
+//
+WORD	948 col 44
+batch_id
+//
+DELIM	948 col 46
+,
+//
+WORD	948 col 53
+string
+//
+WORD	948 col 64
+submit_time
+//
+DELIM	948 col 65
+>
+//
+DELIM	948 col 67
+>
+//
+WORD	948 col 74
+batches
+//
+DELIM	948 col 76
+)
+//
+WORD	948 col 91
+authentication
+//
+WORD	948 col 99
+required
+//
+DELIM	949 col 1
+;
+//
+DELIM	949 col 2
+}
+//
+DELIM	949 col 3
+;
+//
