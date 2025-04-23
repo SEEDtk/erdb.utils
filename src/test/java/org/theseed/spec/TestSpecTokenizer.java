@@ -28,7 +28,7 @@ class TestSpecTokenizer {
 
 	@Test
 	void testTokenizing() throws IOException {
-		File inFile = new File("data", "GenomeAnnotation.spec");
+		File inFile = new File("data", "test.spec");
 		File testFile = new File("data", "GenomeAnnotation.txt");
 		try (LineReader reader = new LineReader(inFile);
 				LineReader verifier = new LineReader(testFile)) {

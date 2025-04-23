@@ -401,14 +401,14 @@ module GenomeAnnotation
 	list<classifier> classifications;
 
 	list<subsystem_data> subsystems;
-
+	
 	structure {
 	    job_statistics assembly;
 	    job_statistics annotation;
 	} job_data;
 
 	list<mapping<string key, string value>> sra_metadata;
-
+	/* This is used for viral variants, not subsystem variants */
 	list<computed_variant> computed_variants;
 
 
@@ -439,8 +439,8 @@ module GenomeAnnotation
     } genome_metadata;
 
     typedef string subsystem;
-    typedef string variant;
-    typedef tuple<subsystem,variant> variant_of_subsystem;
+    typedef string variant_id;
+    typedef tuple<subsystem,variant_id> variant_of_subsystem;
     typedef list<variant_of_subsystem> variant_subsystem_pairs;
     typedef string fid;
     typedef string role;

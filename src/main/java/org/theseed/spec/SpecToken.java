@@ -55,4 +55,40 @@ public class SpecToken {
 		return this.type + ": " + this.text;
 	}
 
+	/**
+	 * @return TRUE if this is a comment token
+	 */
+	public boolean isComment() {
+		return this.type == SpecToken.Type.COMMENT;
+	}
+
+	/**
+	 * Determine if this token represents the specified reserved word.
+	 *
+	 * @param word	expected reserved word
+	 *
+	 * @return TRUE if this token is the expected reserved word, else FALSE
+	 */
+	public boolean isWord(String word) {
+		return this.type == SpecToken.Type.WORD && this.text.equals(word);
+	}
+
+	/**
+	 * @return TRUE if this token is a word
+	 */
+	public boolean isWord() {
+		return this.type == SpecToken.Type.WORD;
+	}
+
+	/**
+	 * Determine if this token represents the specified delimiter.
+	 *
+	 * @param delim		expected delimiter
+	 *
+	 * @return TRUE if this token is the expected delimiter, else FALSE
+	 */
+	public boolean isDelim(String delim) {
+		return this.type == SpecToken.Type.DELIM && this.text.equals(delim);
+	}
+
 }
