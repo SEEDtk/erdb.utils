@@ -6,6 +6,10 @@ package org.theseed.spec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
+
+import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This node contains a type definition. The type definition can be a primitive type, a tuple, a structure,
@@ -52,10 +56,10 @@ public abstract class TypeNode extends SpecNode {
 	}
 
 	/**
-	 * @return the ID of this type
+	 * @return the HTML for the heading line of the function display
 	 */
-	public String getId() {
-		return this.typeID;
+	public ContainerTag getHeader() {
+		return h3(a(this.typeName).withName(this.typeID));
 	}
 
 	/**
@@ -197,6 +201,22 @@ public abstract class TypeNode extends SpecNode {
 		List<TypeNode> retVal = this.getChildNodes().stream().filter(x -> x instanceof TypeNode)
 				.map(x -> (TypeNode) x).toList();
 		return retVal;
+	}
+
+	/**
+	 * @return the member types of this type
+	 */
+	public List<MemberNode> getMembers() {
+		List<MemberNode> retVal = IntStream.range(0, this.getChildCount())
+				.mapToObj(i -> new MemberNode(this, i)).toList();
+		return retVal;
+	}
+
+	/**
+	 * @return the unique ID label of this type
+	 */
+	public String getId() {
+		return this.typeID;
 	}
 
 }

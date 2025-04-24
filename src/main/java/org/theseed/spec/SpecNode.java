@@ -6,7 +6,10 @@ package org.theseed.spec;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This object represents the tree that describes a specification structure or substructure. The basic
@@ -155,6 +158,61 @@ public abstract class SpecNode {
 	 */
 	public List<String> getComments() {
 		return this.comments;
+	}
+
+	/**
+	 * Format comments as HTML paragraphs.
+	 *
+	 * @param commentList	list of comment strings
+	 *
+	 * @return the comments in HTML form
+	 */
+	public static ContainerTag formatComments(List<String> commentList) {
+		ContainerTag retVal;
+		// Check for the easy case of no comments.
+		if (commentList.isEmpty())
+			retVal = div(rawHtml("&nbsp;")).withClass("comment");
+		else {
+			// Paragraphs will be put in here.
+			List<ContainerTag> parts = new ArrayList<ContainerTag>(commentList.size());
+			// Preformat blocks will be built here.
+			List<String> preBlock = new ArrayList<String>(5);
+			// Loop through the comments.
+			for (String comment : commentList) {
+				if (! comment.isEmpty() && Character.isWhitespace(comment.charAt(0))) {
+					// Here we have part of a preformat block.
+					preBlock.add(comment);
+				} else {
+					// Insure we've cleared out the preformat block.
+					if (! preBlock.isEmpty()) {
+						parts.add(formatPreBlock(preBlock));
+						preBlock.clear();
+					}
+					if (comment.isBlank()) {
+						// Here we have a blank line.
+						parts.add(p(rawHtml("&nbsp;")));
+					} else {
+						// here we have a normal line.
+						parts.add(p(comment));
+					}
+				}
+			}
+			// Insure we've processed any residual indented block.
+			if (! preBlock.isEmpty())
+				parts.add(formatPreBlock(preBlock));
+			// Assemble the comments.
+			retVal = div().with(parts).withClass("comment");
+		}
+		return retVal;
+	}
+
+	/**
+	 * @return the specified lines as a pre-formatted block
+	 *
+	 * @param preBlock	lines to pre-format
+	 */
+	private static ContainerTag formatPreBlock(List<String> preBlock) {
+		return pre(StringUtils.join(preBlock, '\n'));
 	}
 
 }

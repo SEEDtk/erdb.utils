@@ -4,6 +4,7 @@
 package org.theseed.spec;
 
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This type node indicates an alias name for an existing type.
@@ -24,10 +25,23 @@ public class AliasTypeNode extends TypeNode {
 		this.addChild(type);
 	}
 
+	/**
+	 * @return the type being aliased
+	 */
+	public TypeNode getActualType() {
+		TypeNode retVal = (TypeNode) this.getChild(0);
+		return retVal;
+	}
+
 	@Override
 	public ContainerTag toHtml() {
-		// TODO code for toHtml
-		return null;
+		// Get the target type.
+		TypeNode target = this.getActualType();
+		// Extract its anchor label.
+		String label = target.getId();
+		// Build an anchor tag to link to it.
+		ContainerTag retVal = a(this.getName()).withHref("#" + label);
+		return retVal;
 	}
 
 }

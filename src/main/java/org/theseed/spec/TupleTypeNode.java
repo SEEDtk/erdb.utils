@@ -5,8 +5,6 @@ package org.theseed.spec;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
-
 import j2html.tags.ContainerTag;
 
 /**
@@ -33,15 +31,6 @@ public class TupleTypeNode extends TypeNode {
 	public ContainerTag toHtml() {
 		// TODO code for tuple type toHtml
 		return null;
-	}
-
-	/**
-	 * @return the member types of this tuple
-	 */
-	public List<MemberNode> getMembers() {
-		List<MemberNode> retVal = IntStream.range(0, this.getChildCount())
-				.mapToObj(i -> new MemberNode(this, i)).toList();
-		return retVal;
 	}
 
 }

@@ -3,6 +3,8 @@
  */
 package org.theseed.spec;
 
+import static j2html.TagCreator.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,10 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 	private String funcName;
 	/** TRUE if authentication is required, else FALSE */
 	private boolean authRequired;
+	/** unique function identifier */
+	private String funcID;
+	/** index number for next function identifier */
+	private static int nextNum = 0;
 
 	/**
 	 * Construct a new, blank function node.
@@ -39,6 +45,9 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 		this.parmCount = 0;
 		this.funcName = name;
 		this.authRequired = false;
+		// Generate the anchor label.
+		nextNum++;
+		this.funcID = String.format("func%06d", nextNum);
 	}
 
 	/**
@@ -93,8 +102,55 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 
 	@Override
 	public ContainerTag toHtml() {
-		// TODO code for function declaration toHtml
-		return null;
+		// The function declaration is fairly complex. It has a table of parameter types and a table of return types.
+		// The function name is not included, since that is output by the parent.
+		List<ContainerTag> parts = new ArrayList<ContainerTag>(4);
+		// Start with the comments (if any).
+		List<String> comments = this.getComments();
+		if (! comments.isEmpty())
+			parts.add(SpecNode.formatComments(comments));
+		// Put a note here if authorization is required.
+		if (this.authRequired)
+			parts.add(p(em("This function requires authorization.")));
+		// Now we output the parameters.
+		List<MemberNode> parms = this.getParms();
+		if (parms.isEmpty())
+			parts.add(p("There are no parameters."));
+		else {
+			List<ContainerTag> parmRows = this.createMemberTable("parm", parms);
+			parts.add(table().withClass("parms").with(parmRows));
+		}
+		// Next we output the return types.
+		List<MemberNode> results = this.getResults();
+		if (results.isEmpty())
+			parts.add(p("The function does not return any values."));
+		else {
+			List<ContainerTag> resultRows = this.createMemberTable("result", results);
+			parts.add(table().withClass("results").with(resultRows));
+		}
+		// Build the full function declaration.
+		ContainerTag retVal = div().with(parts);
+		return retVal;
+	}
+
+	/**
+	 * @param type		label for this table's members
+	 * @param members	list of member nodes to output
+	 *
+	 * @return a table displaying the member types and comments
+	 */
+	private List<ContainerTag> createMemberTable(String type, List<MemberNode> members) {
+		// We build a table with three columns-- index, type, and comments.
+		List<ContainerTag> parmRows = new ArrayList<ContainerTag>(members.size() + 1);
+		parmRows.add(tr(th("#"), th(type + " type"), th("description")));
+		int idx = 0;
+		for (MemberNode parm : members) {
+			idx++;
+			TypeNode parmType = parm.getType();
+			ContainerTag commentHtml = SpecNode.formatComments(parm.getComments());
+			parmRows.add(tr(th(Integer.toString(idx)), td(parmType.toHtml()), td(commentHtml)));
+		}
+		return parmRows;
 	}
 
 	@Override
@@ -129,6 +185,13 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 	}
 
 	/**
+	 * @return the HTML for the heading line of the function display
+	 */
+	public ContainerTag getHeader() {
+		return h3(a(this.funcName).withName(this.funcID));
+	}
+
+	/**
 	 * @return the list of function parameters
 	 */
 	List<MemberNode> getParms() {
@@ -152,5 +215,13 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 	public boolean requiresAuthentication() {
 		return this.authRequired;
 	}
+
+	/**
+	 * @return the unique ID label of this function
+	 */
+	public String getId() {
+		return this.funcID;
+	}
+
 
 }

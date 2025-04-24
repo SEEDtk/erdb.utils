@@ -33,6 +33,9 @@ public class MappingTypeNode extends TypeNode {
 
 	@Override
 	public ContainerTag toHtml() {
+		// A mapping is displayed as a two-row table. The key and value are stored as child types.
+
+
 		// TODO code for mapping type toHtml
 		return null;
 	}

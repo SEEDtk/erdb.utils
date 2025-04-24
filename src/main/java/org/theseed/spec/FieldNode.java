@@ -4,6 +4,7 @@
 package org.theseed.spec;
 
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This node represents a field declaration for a structure type. It has one child-- the type declaration--
@@ -45,8 +46,9 @@ public class FieldNode extends SpecNode {
 
 	@Override
 	public ContainerTag toHtml() {
-		// TODO code for field declaration toHtml
-		return null;
+		// A field is always displayed as a table row.
+		ContainerTag retVal = tr(th(fieldName), td(this.getType().toHtml()), td(SpecNode.formatComments(this.getComments())));
+		return retVal;
 	}
 
 }
