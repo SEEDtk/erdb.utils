@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This type defines a list of objects of identical type. We expect to find a single type declaration
@@ -35,8 +36,9 @@ public class ListTypeNode extends TypeNode {
 
 	@Override
 	public ContainerTag toHtml() {
-		// TODO code for list type toHtml
-		return null;
+		// A list type is a list of objects of some other type. We format it as a DIV block.
+		ContainerTag retVal = div(text("List of "), this.getChild(0).toHtml(), SpecNode.formatComments(this.getComments()));
+		return retVal;
 	}
 
 }

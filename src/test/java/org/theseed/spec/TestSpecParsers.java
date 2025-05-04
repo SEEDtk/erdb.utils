@@ -8,11 +8,16 @@ import static org.hamcrest.Matchers.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.theseed.erdb.utils.DisplayProcessor;
 import org.theseed.io.LineReader;
+
+import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * @author Bruce Parrello
@@ -23,9 +28,10 @@ class TestSpecParsers {
 	@Test
 	void testModuleCompile() throws IOException {
 		File inFile = new File("data", "GenomeAnnotation.spec");
+		ModuleNode modNode;
 		try (LineReader reader = new LineReader(inFile)) {
 			SpecParser parser = new SpecParser(reader);
-			ModuleNode modNode = new ModuleNode(parser);
+			modNode = new ModuleNode(parser);
 			assertThat(modNode.getName(), equalTo("GenomeAnnotation"));
 			Map<String, TypeNode> typeMap = modNode.getTypeMap();
 			assertThat(typeMap, hasEntry(equalTo("genomeTO"), instanceOf(StructureTypeNode.class)));
@@ -59,6 +65,14 @@ class TestSpecParsers {
 			assertThat(lastMember.getType(), instanceOf(ListTypeNode.class));
 			assertThat(lastMember.getName(), equalTo("computed_variants"));
 		}
+		ContainerTag modHtml = modNode.toHtml();
+        ContainerTag head = head().with(link().withRel("styleSheet").withHref(DisplayProcessor.STYLE_SHEET))
+                .with(title(modNode.getName()));
+        ContainerTag page = html().with(head, body().with(modHtml));
+        try (PrintWriter writer = new PrintWriter(new File("data", "module.html"))) {
+            writer.println(page.render());
+        }
+
 	}
 
 }

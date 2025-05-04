@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This type describes a normal hash, with keys and values. The keys and values are strongly typed,
@@ -34,10 +35,8 @@ public class MappingTypeNode extends TypeNode {
 	@Override
 	public ContainerTag toHtml() {
 		// A mapping is displayed as a two-row table. The key and value are stored as child types.
-
-
 		// TODO code for mapping type toHtml
-		return null;
+		return div("todo");
 	}
 
 }

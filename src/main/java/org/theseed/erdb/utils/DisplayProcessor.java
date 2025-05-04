@@ -61,7 +61,7 @@ public class DisplayProcessor extends BaseDbProcessor {
     /** output print writer */
     private PrintWriter writer;
     /** style sheet URL */
-    private String STYLE_SHEET = "https://core.theseed.org/SEEDtk/css/erdb.css";
+    public static final String STYLE_SHEET = "https://figresearch.com/css/db.css";
     /** list of lines */
     private List<ContainerTag> lines;
     /** list of rectangle blocks */

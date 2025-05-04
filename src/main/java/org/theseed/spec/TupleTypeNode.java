@@ -6,6 +6,7 @@ package org.theseed.spec;
 import java.util.List;
 import java.util.Map;
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * Here we have a tuple type. A tuple is essentially a structure with anonymous fields. In practice,
@@ -30,7 +31,7 @@ public class TupleTypeNode extends TypeNode {
 	@Override
 	public ContainerTag toHtml() {
 		// TODO code for tuple type toHtml
-		return null;
+		return div("todo");
 	}
 
 }

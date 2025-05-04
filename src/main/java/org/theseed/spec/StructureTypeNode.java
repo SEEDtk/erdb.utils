@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import j2html.tags.ContainerTag;
+import static j2html.TagCreator.*;
 
 /**
  * This is the most complex type. It describes a structure with named fields. Each field is described by
@@ -63,8 +64,16 @@ public class StructureTypeNode extends TypeNode {
 
 	@Override
 	public ContainerTag toHtml() {
-		// TODO code for structure type toHtml
-		return null;
+		// A structure type is a table of fields. Each field is a row of the table. The columns are
+		// field name, field type, and comment. We build the table rows first.
+		List<ContainerTag> rows = new ArrayList<ContainerTag>(this.getChildCount() + 1);
+		// Start with the header row.
+		rows.add(tr(th("field name"), th("type"), th("comment")));
+		// Add the field rows.
+		this.getChildNodes().stream().map(x -> ((FieldNode) x).toHtml()).forEach(x -> rows.add(x));
+		// Assemble the table.
+		ContainerTag retVal = table().with(rows);
+		return retVal;
 	}
 
 	/**
