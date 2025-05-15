@@ -95,6 +95,13 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 		}
 		if (! token.isDelim(";"))
 			parser.throwUnexpectedException("\";\"", token);
+		// Now update the use counts of all the child types.
+		for (var child : retVal.getChildNodes()) {
+			if (child instanceof TypeNode) {
+				TypeNode childType = (TypeNode) child;
+				childType.markUsed();
+			}
+		}
 		// Store the comments and return the function node.
 		retVal.addComments(comments);
 		return retVal;
@@ -118,7 +125,7 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 			parts.add(p("There are no parameters."));
 		else {
 			List<ContainerTag> parmRows = this.createMemberTable("parm", parms);
-			parts.add(table().withClass("parms").with(parmRows));
+			parts.add(p(table().withClass("parms").with(parmRows)));
 		}
 		// Next we output the return types.
 		List<MemberNode> results = this.getResults();
@@ -126,7 +133,7 @@ public class FuncNode extends SpecNode implements Comparable<FuncNode> {
 			parts.add(p("The function does not return any values."));
 		else {
 			List<ContainerTag> resultRows = this.createMemberTable("result", results);
-			parts.add(table().withClass("results").with(resultRows));
+			parts.add(p(table().withClass("results").with(resultRows)));
 		}
 		// Build the full function declaration.
 		ContainerTag retVal = div().with(parts);

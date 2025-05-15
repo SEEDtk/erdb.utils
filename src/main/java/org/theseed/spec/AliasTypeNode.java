@@ -34,13 +34,13 @@ public class AliasTypeNode extends TypeNode {
 	}
 
 	@Override
-	public ContainerTag toHtml() {
+	public ContainerTag toDetailHtml() {
 		// Get the target type.
 		TypeNode target = this.getActualType();
 		// Extract its anchor label.
 		String label = target.getId();
 		// Build an anchor tag to link to it.
-		ContainerTag retVal = a(this.getName()).withHref("#" + label);
+		ContainerTag retVal = a(target.getName()).withHref("#" + label);
 		return retVal;
 	}
 

@@ -32,9 +32,22 @@ public class DefinitionParser extends ListParser {
 		// Create the primitive types. Note that we never remove from this map, but we want to
 		// preserve the order of insertion from the specification file.
 		this.typeMap = new HashMap<String, TypeNode>();
-		this.typeMap.put("int", new PrimitiveTypeNode("int", "basic integer number"));
-		this.typeMap.put("float", new PrimitiveTypeNode("float", "basic floating-point number"));
-		this.typeMap.put("string", new PrimitiveTypeNode("string", "character or text string"));
+		this.installPrimitiveType(parentNode, "int", "basic integer number");
+		this.installPrimitiveType(parentNode, "float", "basic floating-point number");
+		this.installPrimitiveType(parentNode, "string", "character or text string");
+	}
+
+	/**
+	 * Install a new primitive type for the specified module parse.
+	 *
+	 * @param parentNode	parent module node
+	 * @param typeName		name of the type
+	 * @param typeDesc		description of the type
+	 */
+	private void installPrimitiveType(ModuleNode parentNode, String typeName, String typeDesc) {
+		TypeNode type = new PrimitiveTypeNode(typeName, typeDesc);
+		this.typeMap.put(typeName, type);
+		parentNode.addChild(type);
 	}
 
 	@Override

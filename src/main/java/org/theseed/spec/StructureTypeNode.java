@@ -63,7 +63,7 @@ public class StructureTypeNode extends TypeNode {
 	}
 
 	@Override
-	public ContainerTag toHtml() {
+	public ContainerTag toDetailHtml() {
 		// A structure type is a table of fields. Each field is a row of the table. The columns are
 		// field name, field type, and comment. We build the table rows first.
 		List<ContainerTag> rows = new ArrayList<ContainerTag>(this.getChildCount() + 1);

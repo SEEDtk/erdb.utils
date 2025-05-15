@@ -33,10 +33,13 @@ public class MappingTypeNode extends TypeNode {
 	}
 
 	@Override
-	public ContainerTag toHtml() {
+	public ContainerTag toDetailHtml() {
 		// A mapping is displayed as a two-row table. The key and value are stored as child types.
-		// TODO code for mapping type toHtml
-		return div("todo");
+		TypeNode keyType = (TypeNode) this.getChild(0);
+		TypeNode valueType = (TypeNode) this.getChild(1);
+		ContainerTag mapTable = table().with(tr(th("Key"), td(keyType.toHtml()), td(SpecNode.formatComments(this.getChildComment(0)))),
+				tr(th("Value"), td(valueType.toHtml()), td(SpecNode.formatComments(this.getChildComment(0)))));
+		return div(p("Mapping Type"), mapTable);
 	}
 
 }

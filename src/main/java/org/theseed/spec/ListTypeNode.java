@@ -35,7 +35,7 @@ public class ListTypeNode extends TypeNode {
 	}
 
 	@Override
-	public ContainerTag toHtml() {
+	public ContainerTag toDetailHtml() {
 		// A list type is a list of objects of some other type. We format it as a DIV block.
 		ContainerTag retVal = div(text("List of "), this.getChild(0).toHtml(), SpecNode.formatComments(this.getComments()));
 		return retVal;

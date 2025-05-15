@@ -18,13 +18,17 @@ import static j2html.TagCreator.*;
  * @author Bruce Parrello
  *
  */
-public abstract class TypeNode extends SpecNode {
+public abstract class TypeNode extends SpecNode implements Comparable<TypeNode> {
 
 	// FIELDS
 	/** type name */
 	private String typeName;
 	/** unique type identifier */
 	private String typeID;
+	/** number of times used as a child */
+	private int refCount;
+	/** number of times used in a function */
+	private int useCount;
 	/** index number for next type identifier */
 	private static int nextNum = 0;
 
@@ -33,7 +37,11 @@ public abstract class TypeNode extends SpecNode {
 	 */
 	public TypeNode() {
 		this.typeName = null;
-		this.typeID = null;
+		this.refCount = 0;
+		this.useCount = 0;
+		// Compute the unique type ID.
+		nextNum++;
+		this.typeID = String.format("type%06d", nextNum);
 	}
 
 	/**
@@ -43,9 +51,6 @@ public abstract class TypeNode extends SpecNode {
 	 */
 	public void setName(String name) {
 		this.typeName = name;
-		// Compute the unique type ID.
-		nextNum++;
-		this.typeID = String.format("type%06d", nextNum);
 	}
 
 	/**
@@ -60,6 +65,25 @@ public abstract class TypeNode extends SpecNode {
 	 */
 	public ContainerTag getHeader() {
 		return h3(a(this.typeName).withName(this.typeID));
+	}
+
+	/**
+	 * Add a child to this type. We have the additional task of updating the
+	 * child's reference count.
+	 *
+	 * @param child		child node to add
+	 */
+	@Override
+	public void addChild(SpecNode child) {
+		TypeNode childType = null;
+		if (child instanceof TypeNode)
+			childType = (TypeNode) child;
+		else if (child instanceof FieldNode)
+			childType = (TypeNode) ((FieldNode) child).getType();
+		if (childType != null) {
+			childType.refCount++;
+		}
+		super.addChild(child);
 	}
 
 	/**
@@ -217,6 +241,60 @@ public abstract class TypeNode extends SpecNode {
 	 */
 	public String getId() {
 		return this.typeID;
+	}
+
+	/**
+	 * The HTML for the type is most commonly just the name with a reference to its anchor tag.
+	 * If the type is anonymous, however, we must expand the full thing.
+	 *
+	 * @return the HTML for this type when used anywhere in the document
+	 */
+	public ContainerTag toHtml() {
+		ContainerTag retVal;
+		if (this.isAnonymous())
+			retVal = this.toDetailHtml();
+		else {
+			retVal = a(this.typeName).withHref("#" + this.typeID);
+		}
+		return retVal;
+	}
+
+	/**
+	 * @return the detailed HTML expansion of the type definition
+	 */
+	protected abstract ContainerTag toDetailHtml();
+
+	/**
+	 * Compare two types. The ordering is from highest to lowest use count, then lowest to
+	 * highest parent count, then alphabetically by name. Anonymous types are last,
+	 * sorted by type ID.
+	 *
+	 * @param other		other type to compare
+	 */
+	@Override
+	public int compareTo(TypeNode other) {
+		int retVal = other.useCount - this.useCount;
+		if (retVal == 0)
+			retVal = this.refCount - other.refCount;
+		if (retVal == 0) {
+			if (this.typeName == null) {
+				if (other.typeName == null)
+					retVal = this.typeID.compareTo(other.typeID);
+				else
+					retVal = -1;
+			} else if (other.typeName == null)
+				retVal = 1;
+			else
+				retVal = this.typeName.compareTo(other.typeName);
+		}
+		return retVal;
+	}
+
+	/**
+	 * Denote this type has been used in a function.
+	 */
+	protected void markUsed() {
+		this.useCount++;
 	}
 
 }

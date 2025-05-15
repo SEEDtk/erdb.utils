@@ -127,7 +127,7 @@ public abstract class SpecNode {
 
 
 	/**
-	 * @return HTML for this node
+	 * @return basic HTML for this node
 	 */
 	public abstract ContainerTag toHtml();
 

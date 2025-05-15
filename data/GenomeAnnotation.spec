@@ -166,7 +166,7 @@ module GenomeAnnotation
 	list<string> version;
     } genbank_locus;
 
-    /* A feature object represents a feature on the genome. It contains 
+    /* A feature object represents a feature on the genome. It contains
        the location on the contig with a type, the translation if it
        represents a protein, associated aliases, etc. It also contains
        information gathered during the annotation process that is involved
@@ -287,7 +287,7 @@ module GenomeAnnotation
 
 	list<tuple<feature_id id, string gene_name, string function, string amr_classification>> amr_genes;
 	list<tuple<string amr_classification, list<string> gene_names>> amr_gene_summary;
-	
+
 	mapping<string superclass, structure { int genes; int subsystems; } > subsystem_summary;
 
 	float cds_ratio;
@@ -298,7 +298,7 @@ module GenomeAnnotation
 
 	list<string> genome_quality_flags;
 	string genome_quality;
-	
+
     } genome_quality_measure;
 
     typedef structure
@@ -340,7 +340,7 @@ module GenomeAnnotation
     } subsystem_data;
 
     /* Variant support */
-    
+
 	typedef structure {
 	    int pos;
 	    string ref;
@@ -358,7 +358,7 @@ module GenomeAnnotation
 	    int frame;
 	    list<snp> snps;
 	} variant;
-	typedef structure { 
+	typedef structure {
 	    string tool;
 	    mapping<string, string> tool_metadata;
 	    mapping<string, string> tool_output;
@@ -387,7 +387,7 @@ module GenomeAnnotation
 	string owner;
 
 	genome_quality_measure quality;
-	
+
 	list<contig> contigs;
 	Handle contigs_handle;
 
@@ -401,7 +401,7 @@ module GenomeAnnotation
 	list<classifier> classifications;
 
 	list<subsystem_data> subsystems;
-	
+
 	structure {
 	    job_statistics assembly;
 	    job_statistics annotation;
@@ -412,7 +412,7 @@ module GenomeAnnotation
 	list<computed_variant> computed_variants;
 
 
-	    
+
 
     } genomeTO;
 
@@ -485,7 +485,7 @@ module GenomeAnnotation
     /*
      * Create a new genome object based on a RAST genome.
      */
-    funcdef create_genome_from_RAST(string genome_or_job_id) returns (genomeTO genome); /*  authentication optional; */
+    funcdef create_genome_from_RAST(string genome_or_job_id) returns (genomeTO genome); /*  authentication optional */
 
     /*
      * Modify genome metadata.
@@ -556,7 +556,7 @@ module GenomeAnnotation
 
     /* [ validate.enum("5S", "SSU", "LSU", "ALL") ] */
     typedef string rna_type;
-    
+
     /*
      * Given a genome typed object, find instances of ribosomal RNAs in
      * the genome.
@@ -589,28 +589,28 @@ module GenomeAnnotation
 	string reference_name;
 	bool remove_existing_features;
     } vigor4_parameters;
-    
+
     funcdef call_features_vigor4(genomeTO, vigor4_parameters params) returns (genomeTO);
-    
+
     typedef structure
     {
 	bool remove_existing_features;
     } vipr_mat_peptide_parameters;
-    
+
     funcdef call_features_vipr_mat_peptide(genomeTO, vipr_mat_peptide_parameters params) returns (genomeTO);
-    
+
     typedef structure
     {
 	int min_training_len;
     } glimmer3_parameters;
-    
+
     funcdef call_features_CDS_glimmer3(genomeTO, glimmer3_parameters params) returns (genomeTO);
-    
+
     funcdef call_features_CDS_prodigal(genomeTO) returns (genomeTO);
     funcdef call_features_CDS_genemark(genomeTO) returns (genomeTO);
     funcdef call_features_CDS_phanotate(genomeTO) returns (genomeTO);
-    
-    typedef structure 
+
+    typedef structure
     {
 	int minimum_contig_length;
 	float max_homopolymer_frequency;
@@ -638,7 +638,7 @@ module GenomeAnnotation
     funcdef call_features_prophage_phispy(genomeTO genome_in) returns (genomeTO genome_out);
 
     funcdef call_features_scan_for_matches(genomeTO genome_in, string pattern, string feature_type) returns (genomeTO genome_out);
-    
+
     typedef structure
     {
 	int min_gap_length;
@@ -646,17 +646,17 @@ module GenomeAnnotation
     } assembly_gap_parameters;
 
     /*
-    * Given a genome typed object, call gap features.		
-    * Gaps are known regions in the contig where the nucleotide sequence is not known		
-    * but where there is evidence that a run of DNA does exist joining the sequenced			
-    * data on either side of the gap.    
-    * 	
-    * Gaps are currently called using one of two methods. Genomes that originated as		
-    * genbank files may have a CONTIGS entry that defines the contig and gap regions.			
+    * Given a genome typed object, call gap features.
+    * Gaps are known regions in the contig where the nucleotide sequence is not known
+    * but where there is evidence that a run of DNA does exist joining the sequenced
+    * data on either side of the gap.
+    *
+    * Gaps are currently called using one of two methods. Genomes that originated as
+    * genbank files may have a CONTIGS entry that defines the contig and gap regions.
     * Genomes that do not have a CONTIGS entry are scanned for runs of "n" characters.
     */
     funcdef call_features_assembly_gap(genomeTO genome_in, assembly_gap_parameters params) returns (genomeTO genome_out);
-    
+
     typedef structure
     {
 	int tmp;
@@ -714,7 +714,7 @@ module GenomeAnnotation
 	string kmer_data_directory;
 	string kmer_service_url;
     } kmer_v2_parameters;
-    
+
     funcdef annotate_proteins_kmer_v2(genomeTO genome_in, kmer_v2_parameters params) returns (genomeTO genome_out);
 
     typedef structure {
@@ -836,7 +836,7 @@ module GenomeAnnotation
     /*
      * Query the taxonomy strings that this classifier maps.
      */
-    
+
     funcdef query_classifier_taxonomies(string classifier) returns(mapping<string group_id, string taxonomy>);
 
     /*
@@ -873,7 +873,7 @@ module GenomeAnnotation
      * Compute genome Quality Control scoring.
      */
     funcdef compute_genome_quality_control(genomeTO genome_in) returns (genomeTO genome_out);
-    
+
     typedef structure
     {
 	list<pipeline_stage> stages;
@@ -922,7 +922,7 @@ module GenomeAnnotation
 	string creation_date;
 	string start_date;
 	string completion_date;
-	
+
 	Handle stdout;
 	Handle stderr;
 	Handle output;

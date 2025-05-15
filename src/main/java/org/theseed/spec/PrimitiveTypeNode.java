@@ -30,7 +30,7 @@ public class PrimitiveTypeNode extends TypeNode {
 	}
 
 	@Override
-	public ContainerTag toHtml() {
+	public ContainerTag toDetailHtml() {
 		// The primitive type is output as a description paragraph. The name is not included,
 		// as this is output by the parent HTML.
 		ContainerTag retVal = p(this.desc);

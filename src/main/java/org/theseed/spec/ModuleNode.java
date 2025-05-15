@@ -5,6 +5,7 @@ package org.theseed.spec;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -60,7 +61,7 @@ public class ModuleNode extends SpecNode {
 	 */
 	public List<TypeNode> getTypes() {
 		List<TypeNode> retVal = this.getChildNodes().stream().filter(x -> x instanceof TypeNode).map(x -> (TypeNode) x)
-				.toList();
+				.sorted().toList();
 		return retVal;
 	}
 
@@ -87,7 +88,7 @@ public class ModuleNode extends SpecNode {
 		// the function definitions.
 		// First we build the type definition segment. In the process, we'll accumulate a type table
 		// of contents. This is a map of type names to identifiers.
-		Map<String, String> typeTocMap = new TreeMap<String, String>();
+		Map<String, String> typeTocMap = new LinkedHashMap<String, String>();
 		// Get the list of types.
 		List<TypeNode> typeList = this.getTypes();
 		// This will be a list of type definitions.
@@ -97,7 +98,7 @@ public class ModuleNode extends SpecNode {
 			String typeName = type.getName();
 			typeTocMap.put(typeName, type.getId());
 			// The type definition consists of a header and a definition.
-			ContainerTag typeDiv = div(type.getHeader(), type.toHtml()).withClass("type");
+			ContainerTag typeDiv = div(type.getHeader(), type.toDetailHtml()).withClass("type");
 			typeDivs.add(typeDiv);
 		}
 		// Now we wrap the type definitions in a section.

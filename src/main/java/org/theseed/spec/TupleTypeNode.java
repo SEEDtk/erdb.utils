@@ -3,6 +3,7 @@
  */
 package org.theseed.spec;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import j2html.tags.ContainerTag;
@@ -29,9 +30,19 @@ public class TupleTypeNode extends TypeNode {
 	}
 
 	@Override
-	public ContainerTag toHtml() {
-		// TODO code for tuple type toHtml
-		return div("todo");
+	public ContainerTag toDetailHtml() {
+		final int n = this.getChildCount();
+		List<ContainerTag> rows = new ArrayList<ContainerTag>(n + 1);
+		// Start with the header row.
+		rows.add(tr(th("type"), th("comment")));
+		// Add the item rows.
+		for (int i = 0; i < n; i++) {
+			ContainerTag typeHtml = ((TypeNode) this.getChild(i)).toHtml();
+			ContainerTag commentHtml = SpecNode.formatComments(this.getChildComment(i));
+			rows.add(tr(td(typeHtml), td(commentHtml)));
+		}
+		ContainerTag retVal = div(p("Tuple Type"), table().with(rows));
+		return retVal;
 	}
 
 }
