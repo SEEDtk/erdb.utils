@@ -3,11 +3,15 @@
  */
 package org.theseed.spec;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import j2html.tags.ContainerTag;
 import static j2html.TagCreator.*;
@@ -47,6 +51,42 @@ public class ModuleNode extends SpecNode {
 		ListParser parser = new DefinitionParser(this, specParser);
 		// Parse the type and function definitions.
 		parser.parse();
+		// Now we need to update the type node reference counts. This requires a recursive
+		// traversal of the named types. (Only the named types matter for this.) We create
+		// a "visited" set to prevent traversing the same node twice. Circular references
+		// basically don't count.
+		Set<String> visited = new HashSet<String>(this.getChildCount() * 4 / 3 + 1);
+		// This is a stack of the type nodes not yet processed.
+		Deque<TypeNode> types = new ArrayDeque<TypeNode>();
+		// Fill it with the high-level types from this module and mark every one as visited.
+		for (SpecNode child : this.getChildNodes()) {
+			if (child instanceof TypeNode) {
+				TypeNode type = (TypeNode) child;
+				types.add(type);
+				visited.add(type.getName());
+			}
+		}
+		// Process the type stack until it is empty.
+		while (! types.isEmpty()) {
+			TypeNode type = types.pop();
+			for (SpecNode child : type.getChildNodes()) {
+				TypeNode childType = null;
+				if (child instanceof TypeNode)
+					childType = (TypeNode) child;
+				else if (child instanceof FieldNode)
+					childType = ((FieldNode) child).getType();
+				if (childType != null) {
+					childType.markReferenced();
+					String childName = childType.getName();
+					if (childName == null)
+						types.push(childType);
+					else if (! visited.contains(childName)) {
+						visited.add(childName);
+						types.push(childType);
+					}
+				}
+			}
+		}
 	}
 
 	/**

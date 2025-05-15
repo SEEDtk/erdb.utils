@@ -68,25 +68,6 @@ public abstract class TypeNode extends SpecNode implements Comparable<TypeNode> 
 	}
 
 	/**
-	 * Add a child to this type. We have the additional task of updating the
-	 * child's reference count.
-	 *
-	 * @param child		child node to add
-	 */
-	@Override
-	public void addChild(SpecNode child) {
-		TypeNode childType = null;
-		if (child instanceof TypeNode)
-			childType = (TypeNode) child;
-		else if (child instanceof FieldNode)
-			childType = (TypeNode) ((FieldNode) child).getType();
-		if (childType != null) {
-			childType.refCount++;
-		}
-		super.addChild(child);
-	}
-
-	/**
 	 * @return TRUE if this is an anonymous type
 	 */
 	public boolean isAnonymous() {
@@ -273,9 +254,9 @@ public abstract class TypeNode extends SpecNode implements Comparable<TypeNode> 
 	 */
 	@Override
 	public int compareTo(TypeNode other) {
-		int retVal = other.useCount - this.useCount;
+		int retVal = this.refCount - other.refCount;
 		if (retVal == 0)
-			retVal = this.refCount - other.refCount;
+			retVal = other.useCount - this.useCount;
 		if (retVal == 0) {
 			if (this.typeName == null) {
 				if (other.typeName == null)
@@ -295,6 +276,13 @@ public abstract class TypeNode extends SpecNode implements Comparable<TypeNode> 
 	 */
 	protected void markUsed() {
 		this.useCount++;
+	}
+
+	/**
+	 * Denote this type has been referenced as a subtype.
+	 */
+	protected void markReferenced() {
+		this.refCount++;
 	}
 
 }
